@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="Bruno Pacheco">
+    <meta name="description" content="https://brunopacheco1.github.io">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <meta property="og:site_name" content="Bruno Pacheco">
+    <meta property="og:title" content="
+  Quarkus, Kotlin and GraalVM - Bruno Pacheco
+">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://brunopacheco1.github.io/posts/quarkus-kotlin-and-graalvm/">
+    <meta property="og:image" content="https://brunopacheco1.github.io">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="https://brunopacheco1.github.io/posts/quarkus-kotlin-and-graalvm/">
+    <meta name="twitter:image" content="https://brunopacheco1.github.io">
+
+    <base href="https://brunopacheco1.github.io/posts/quarkus-kotlin-and-graalvm/">
+    <title>
+  Quarkus, Kotlin and GraalVM - Bruno Pacheco
+</title>
+
+    <link rel="canonical" href="https://brunopacheco1.github.io/posts/quarkus-kotlin-and-graalvm/">
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    
+    <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:400,700">
+    <link rel="stylesheet" href="https://brunopacheco1.github.io/css/normalize.min.css">
+    <link rel="stylesheet" href="https://brunopacheco1.github.io/css/style.min.css">
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="https://brunopacheco1.github.io/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://brunopacheco1.github.io/images/favicon-16x16.png" sizes="16x16">
+
+    
+      <link rel="alternate" href="https://brunopacheco1.github.io/index.xml" type="application/rss+xml" title="Bruno Pacheco">
+      <link href="https://brunopacheco1.github.io/index.xml" rel="feed" type="application/rss+xml" title="Bruno Pacheco" />
+    
+
+    <meta name="generator" content="Hugo 0.59.0" />
+  </head>
+
+  <body class="">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">Bruno Pacheco</a>
+    <input type="checkbox" id="menu-control"/>
+    <label class="menu-mobile  float-right " for="menu-control">
+      <span class="btn-mobile  float-right ">&#9776;</span>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="https://brunopacheco1.github.io/posts">Blog</a>
+            </li>
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="https://brunopacheco1.github.io/about">About</a>
+            </li>
+          
+        
+        
+      </ul>
+    </label>
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+  <article>
+    <header>
+      <h1 class="title">Quarkus, Kotlin and GraalVM</h1>
+      <h2 class="date">October 29, 2019</h2>
+
+      
+    </header>
+
+    <p>After a chat with <a href="https://github.com/nerg4l">László</a>, where I was asking some ideas to practice Quarkus and GraalVM, he suggested me to code the classic game Snake (AKA Worms by me :P).</p>
+
+<p>First, why <a href="https://quarkus.io">Quarkus</a>? I&rsquo;ve read an article somewhere and it was said that Quarkus is a great promising solution for the Java in the Cloud, as it reduces drastically the application&rsquo;s footprint and it has an insanelly fast startup when running on native code, and here is where GraalVM enters.</p>
+
+<p><a href="https://www.graalvm.org/">GraalVM</a> is a general porpouse VM for running applications written in a bunch of different languages, allowing polyglot code. The first time I&rsquo;ve read about it was a year ago(?) and I felt that was a amazing thing to try on but still immature. I did some test back then anyway, but not that fruitfull on a node app I was coding, so I just gave up.</p>
+
+<p><a href="https://kotlinlang.org/">Kotlin</a> has no reasonable arguments to be here then that it is a brand new Java dialect, which I was already learning, but I have never used it on something substantial as this game was planed to be. I do reconize the benefits of using Kotlin such as nullability, imutability, less verbose code, tons of new coder-friendly functions, however they are not that important when you have a clean code and efficient testing.</p>
+
+  </article>
+
+  <br/>
+
+  
+  
+</section>
+
+      </div>
+      
+        <footer class="footer">
+  <section class="container">
+    
+      <div class="sns-shares sp-sns-shares">
+        
+          <a class="sns-share twitter-share" href="https://twitter.com/intent/tweet?original_referer=https%3a%2f%2fbrunopacheco1.github.io%2fposts%2fquarkus-kotlin-and-graalvm%2f&ref_src=twsrc%5Etfw&text=Quarkus%2c%20Kotlin%20and%20GraalVM Bruno%20Pacheco&tw_p=tweetbutton&url=https%3a%2f%2fbrunopacheco1.github.io%2fposts%2fquarkus-kotlin-and-graalvm%2f"><i class="fab fa-twitter"></i></a>
+        
+        
+          <a class="fb btn sns-share fb-share" href="http://www.facebook.com/share.php?u=https%3a%2f%2fbrunopacheco1.github.io%2fposts%2fquarkus-kotlin-and-graalvm%2f" onclick="window.open(this.href, 'FBwindow', 'width=650, height=450, menubar=no, toolbar=no, scrollbars=yes'); return false;"><i class="fab fa-facebook-f"></i></a>
+        
+        
+          <a class="sns-share hatena-share" href="http://b.hatena.ne.jp/entry/https://brunopacheco1.github.io/posts/quarkus-kotlin-and-graalvm/"  data-hatena-bookmark-layout="touch" data-hatena-bookmark-width="40" data-hatena-bookmark-height="40" title="このエントリーをはてなブックマークに追加"><i class="fas fa-bookmark"></i></a>
+        
+        
+          <a class="sns-share line-share" href="https://social-plugins.line.me/lineit/share?url=https%3a%2f%2fbrunopacheco1.github.io%2fposts%2fquarkus-kotlin-and-graalvm%2f"><i class="fab fa-line"></i></a>
+        
+        
+          <a class="sns-share linkedIn-share" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3a%2f%2fbrunopacheco1.github.io%2fposts%2fquarkus-kotlin-and-graalvm%2f"><i class="fab fa-linkedin"></i></a>
+        
+      </div>
+    
+    
+     © 2019    ·  Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/naro143/hugo-coder-portfolio">CoderPortfolio</a>. 
+
+  </section>
+</footer>
+<div class="fixed-bar">
+  <section class="container">
+    
+    
+      <div class="sns-shares pc-sns-shares">
+        
+          <a class="sns-share twitter-share" href="https://twitter.com/intent/tweet?original_referer=https%3a%2f%2fbrunopacheco1.github.io%2fposts%2fquarkus-kotlin-and-graalvm%2f&ref_src=twsrc%5Etfw&text=Quarkus%2c%20Kotlin%20and%20GraalVM Bruno%20Pacheco&tw_p=tweetbutton&url=https%3a%2f%2fbrunopacheco1.github.io%2fposts%2fquarkus-kotlin-and-graalvm%2f"><i class="fab fa-twitter"></i></a>
+        
+        
+          <a class="fb btn sns-share fb-share" href="http://www.facebook.com/share.php?u=https%3a%2f%2fbrunopacheco1.github.io%2fposts%2fquarkus-kotlin-and-graalvm%2f" onclick="window.open(this.href, 'FBwindow', 'width=650, height=450, menubar=no, toolbar=no, scrollbars=yes'); return false;"><i class="fab fa-facebook-f"></i></a>
+        
+        
+          <a class="sns-share hatena-share" href="http://b.hatena.ne.jp/entry/https://brunopacheco1.github.io/posts/quarkus-kotlin-and-graalvm/"  data-hatena-bookmark-layout="touch" data-hatena-bookmark-width="40" data-hatena-bookmark-height="40" title="このエントリーをはてなブックマークに追加"><i class="fas fa-bookmark"></i></a>
+        
+        
+          <a class="sns-share line-share" href="https://social-plugins.line.me/lineit/share?url=https%3a%2f%2fbrunopacheco1.github.io%2fposts%2fquarkus-kotlin-and-graalvm%2f"><i class="fab fa-line"></i></a>
+        
+        
+          <a class="sns-share linkedIn-share" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3a%2f%2fbrunopacheco1.github.io%2fposts%2fquarkus-kotlin-and-graalvm%2f"><i class="fab fa-linkedin"></i></a>
+        
+      </div>
+    
+  </section>
+</div>
+
+      
+    </main>
+
+    
+
+  <script src="https://brunopacheco1.github.io/js/app.js"></script>
+  
+  </body>
+</html>

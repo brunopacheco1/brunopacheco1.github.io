@@ -6,10 +6,20 @@
     <description>Recent content in Posts on Bruno Pacheco</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 28 Oct 2019 22:38:36 +0200</lastBuildDate>
+    <lastBuildDate>Tue, 29 Oct 2019 22:05:30 +0100</lastBuildDate>
     
 	<atom:link href="https://brunopacheco1.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Quarkus, Kotlin and GraalVM</title>
+      <link>https://brunopacheco1.github.io/posts/quarkus-kotlin-and-graalvm/</link>
+      <pubDate>Tue, 29 Oct 2019 22:05:30 +0100</pubDate>
+      
+      <guid>https://brunopacheco1.github.io/posts/quarkus-kotlin-and-graalvm/</guid>
+      <description>After a chat with László, where I was asking some ideas to practice Quarkus and GraalVM, he suggested me to code the classic game Snake (AKA Worms by me :P).
+First, why Quarkus? I&amp;rsquo;ve read an article somewhere and it was said that Quarkus is a great promising solution for the Java in the Cloud, as it reduces drastically the application&amp;rsquo;s footprint and it has an insanelly fast startup when running on native code, and here is where GraalVM enters.</description>
+    </item>
     
     <item>
       <title>The First Post</title>
