@@ -87,13 +87,44 @@
       
     </header>
 
-    <p>After a chat with <a href="https://github.com/nerg4l">László</a>, where I was asking some ideas to practice Quarkus and GraalVM, he suggested me to code the classic game Snake (AKA Worms by me :P).</p>
+    
 
-<p>First, why <a href="https://quarkus.io">Quarkus</a>? I&rsquo;ve read an article somewhere and it was said that Quarkus is a great promising solution for the Java in the Cloud, as it reduces drastically the application&rsquo;s footprint and it has an insanelly fast startup when running on native code, and here is where GraalVM enters.</p>
+<p>After a chat with <a href="https://github.com/nerg4l">László</a>, where I&rsquo;ve asked some idea to practice Quarkus and GraalVM, he suggested me to code the classic game Snake (AKA Worms by me :P).</p>
 
-<p><a href="https://www.graalvm.org/">GraalVM</a> is a general porpouse VM for running applications written in a bunch of different languages, allowing polyglot code. The first time I&rsquo;ve read about it was a year ago(?) and I felt that was a amazing thing to try on but still immature. I did some test back then anyway, but not that fruitfull on a node app I was coding, so I just gave up.</p>
+<h3 id="motivations">Motivations</h3>
 
-<p><a href="https://kotlinlang.org/">Kotlin</a> has no reasonable arguments to be here then that it is a brand new Java dialect, which I was already learning, but I have never used it on something substantial as this game was planed to be. I do reconize the benefits of using Kotlin such as nullability, imutability, less verbose code, tons of new coder-friendly functions, however they are not that important when you have a clean code and efficient testing.</p>
+<p>Why <a href="https://quarkus.io">Quarkus</a>? Well, I&rsquo;ve read an article saying that Quarkus is a great promising solution for Java in the Cloud, as it reduces drastically the application&rsquo;s footprint and it has an insanely fast startup, when running on native code, and here is where GraalVM enters.</p>
+
+<p><a href="https://www.graalvm.org/">GraalVM</a> is a general purpose VM for running applications written in a bunch of different languages, allowing also polyglot code. At the first glance, I felt it was an amazing thing to try on, and so I did, but at the end it wasn&rsquo;t fruitful duet to some strange bug on a node app I was coding in that time, so I just gave up.</p>
+
+<p><a href="https://kotlinlang.org/">Kotlin</a> has no reasonable arguments to be here then it is a brand new Java dialect, which I was already learning, but I have never used it on something substantial, so why not?</p>
+
+<h3 id="starting-the-adventure">Starting the adventure</h3>
+
+<p>I&rsquo;ve started the project just reading the guides on Quarkus.io, which in the beginning looked quite hands-on, and as any recent framework for web development, it was really simple to code, in five minutes I had a rest service running locally, but of course a http call returning a Hello World string doesn&rsquo;t deserve to be called a service.</p>
+
+<p>First steps, new domain and DTO classes, JPA, H2 and a couple of CRUD endpoints. Now something to start with, isn&rsquo;t it? Yes, and I decided to migrate the code to Kotlin&hellip; Bugs were popping up!</p>
+
+<p>First problem, JPA requires open classes and by default it&rsquo;s not true in Kotlin. To fix it, Kotlin compiler has a plugin supporting JPA, just a flag.</p>
+
+<p>Second problem, Quarkus by default uses JSON-B for serialization, but when moving the code to Kotlin, it started failing and some workarounds were required for the DTOs. At the end I decided to try Jackson and it worked nice, not bugs here and the DTOs were cleaner then before. Latter on, I had also to add a no-arg plugin option, a custom annotation in the DTOs in order to remove the extra constructor method, and all properties have to be var.</p>
+
+<p>Third problem, similarly to the JPA entities, all managed beans have to be open, so one more flag to the Kotlin compiler to understand things correctly.</p>
+
+<p>Fourth problem, I created an abstract Repository class, to simulate the spring repositories and have a common behavior for all entities repos, but here again some strange problem with the dependency injection in the superclass. The work around was the following:</p>
+<div class="highlight"><pre class="chroma">    @PersistenceContext
+    protected lateinit var em: EntityManager</pre></div>
+<p>A bit odd, because I was trying to inject it via constructor, but for some reason it wasn&rsquo;t working, so it is as it is until now.</p>
+
+<p>Fifth problem, for all @OneToMany I had to change from List/Set to MutableList/MutableSet.</p>
+
+<p>Sixth problem, I don&rsquo;t remember why, but now all fields in the domain and DTO classes are var, instead of val. I have to check why again.</p>
+
+<h3 id="conclusions">Conclusions</h3>
+
+<p>About Kotlin, I do reconize the benefits of using Kotlin such as nullability, immutability, less verbose code, tons of new coder-friendly functions, however they are not that important when you have a clean code and efficient testing.</p>
+
+<p><strong>See you | Bis dann | Até mais | À bientôt</strong></p>
 
   </article>
 
