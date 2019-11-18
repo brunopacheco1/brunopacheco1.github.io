@@ -6,7 +6,7 @@
     <description>Recent content on Bruno Pacheco</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 28 Oct 2019 22:05:30 +0100</lastBuildDate>
+    <lastBuildDate>Mon, 18 Nov 2019 22:05:30 +0100</lastBuildDate>
     
 	<atom:link href="https://brunopacheco1.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>Quarkus, Kotlin and GraalVM</title>
       <link>https://brunopacheco1.github.io/posts/quarkus-kotlin-and-graalvm/</link>
-      <pubDate>Mon, 28 Oct 2019 22:05:30 +0100</pubDate>
+      <pubDate>Mon, 18 Nov 2019 22:05:30 +0100</pubDate>
       
       <guid>https://brunopacheco1.github.io/posts/quarkus-kotlin-and-graalvm/</guid>
       <description>After a chat with László, where I&amp;rsquo;ve asked some idea to practice Quarkus and GraalVM, he suggested me to code the classic game Snake (AKA Worms by me :P).
