@@ -162,7 +162,7 @@ data class MatchMapPlayer(
 
 <p>After trespassing the first barrier, I was ready for the next boss (the final one?): compiling the project to native code.</p>
 
-<p>According to Quarkus.io, this shouldn&rsquo;t be complicated, as they aim to simplify native code compilation using their on maven plugin. Even their guides being simplistic, they are not lying. But they could have mentioned the Reflection limitation in Quarkus, which will be explained in the following lines.</p>
+<p>According to Quarkus.io, this shouldn&rsquo;t be complicated as they aim to simplify native code compilation using their on maven plugin. Even their guides being simplistic, they are not lying. But they could have mentioned the Reflection limitation in GraalVM, which will be explained in the following lines.</p>
 
 <p>So, to build the app, you have to run a similar mvn command:</p>
 <div class="highlight"><pre class="chroma"><span class="nx">mvn</span> <span class="nx">clean</span> <span class="kn">package</span> <span class="o">-</span><span class="nx">Pnative</span> <span class="o">-</span><span class="nx">Dnative</span><span class="o">-</span><span class="nx">image</span><span class="p">.</span><span class="nx">docker</span><span class="o">-</span><span class="nx">build</span><span class="p">=</span><span class="kc">true</span></pre></div>
