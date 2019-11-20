@@ -17,8 +17,9 @@
       <pubDate>Mon, 18 Nov 2019 22:05:30 +0100</pubDate>
       
       <guid>https://brunopacheco1.github.io/posts/quarkus-kotlin-and-graalvm/</guid>
-      <description>After a chat with László, where I&amp;rsquo;ve asked some idea to practice Quarkus and GraalVM, he suggested me to code the classic game Snake (AKA Worms by me :P).
-Motivations Why Quarkus? I’ve read an article saying that Quarkus is a great promising solution for Java in the Cloud, as it reduces drastically the application’s footprint and it has an insanely fast startup when running on native code, and here is where GraalVM enters.</description>
+      <description>During a chat with László, I&amp;rsquo;ve asked him for some ideas to practice Quarkus and GraalVM, he suggested to code the classic game Snake (AKA Worms by me :P).
+Motivations Why Quarkus? I&amp;rsquo;ve read an article saying that Quarkus is a great and promising solution for Java in the Cloud, as it drastically reduces the application&amp;rsquo;s footprint and has an insanely fast startup when running on native code.
+GraalVM is a general-purpose VM for running applications written in a bunch of different languages, allowing a polyglot code.</description>
     </item>
     
     <item>
