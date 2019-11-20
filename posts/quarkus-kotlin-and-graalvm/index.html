@@ -166,9 +166,9 @@ data class MatchMapPlayer(
 
 <p>So, to build the app, you have to run a similar mvn command:</p>
 <div class="highlight"><pre class="chroma"><span class="nx">mvn</span> <span class="nx">clean</span> <span class="kn">package</span> <span class="o">-</span><span class="nx">Pnative</span> <span class="o">-</span><span class="nx">Dnative</span><span class="o">-</span><span class="nx">image</span><span class="p">.</span><span class="nx">docker</span><span class="o">-</span><span class="nx">build</span><span class="p">=</span><span class="kc">true</span></pre></div>
-<p>By the way, I was building a containerized native code, that&rsquo;s why there&rsquo;s this docker-build arg, to compile an optimized app for docker. They also provide a dockerfile sample.</p>
+<p>By the way, I was building a containerized native code, that&rsquo;s why there&rsquo;s this docker-build arg. They also provide a dockerfile sample.</p>
 
-<p>I thought at this stage that would be enough, but no. After running the build and running the app, I faced an error on Jackson, as reflection is not supported by default on native code. It took me a while to understand why, and a bit more to find a way to fix it.</p>
+<p>I thought at this stage that would be enough, but no. After running the build and running the app on Docker, I faced exceptions on Jackson. So, reflection is not supported by default on native code and it took me a while to understand why, and a bit more to find a way to fix it.</p>
 
 <p>On a side note, the build consumes a lot of memory and CPU, almost killing my old Lenovo. :(</p>
 
