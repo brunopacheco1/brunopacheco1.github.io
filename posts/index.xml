@@ -6,10 +6,20 @@
     <description>Recent content in Posts on Bruno Pacheco</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 18 Nov 2019 22:05:30 +0100</lastBuildDate>
+    <lastBuildDate>Sat, 23 Nov 2019 08:02:28 +0100</lastBuildDate>
     
 	<atom:link href="https://brunopacheco1.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Pitch my team!</title>
+      <link>https://brunopacheco1.github.io/posts/pitch-my-team/</link>
+      <pubDate>Sat, 23 Nov 2019 08:02:28 +0100</pubDate>
+      
+      <guid>https://brunopacheco1.github.io/posts/pitch-my-team/</guid>
+      <description>Yesterday we had the &amp;ldquo;Pitch my team!&amp;rdquo; in Pictet Technologies, where we had 5 minutes to share what we&amp;rsquo;ve been doing in 2019. I wasn&amp;rsquo;t excited about it when they asked us to do it, you know, me going to a stage, grabbing a mic a say something to hundred people.
+But then Misi (our team lead) had a brilliant idea of recording a video using Prezi Video. With it, you can overlay the video camera output with the slides, allowing you to interact with the slides.</description>
+    </item>
     
     <item>
       <title>Quarkus, Kotlin and GraalVM</title>
