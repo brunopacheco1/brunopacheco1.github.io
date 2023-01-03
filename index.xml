@@ -6,10 +6,18 @@
     <description>Recent content on Bruno Pacheco</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 23 Nov 2019 08:02:28 +0100</lastBuildDate>
-    
-	<atom:link href="https://brunopacheco1.github.io/index.xml" rel="self" type="application/rss+xml" />
-    
+    <lastBuildDate>Wed, 12 Feb 2020 20:37:41 +0100</lastBuildDate><atom:link href="https://brunopacheco1.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How I failed using Google Cloud Functions</title>
+      <link>https://brunopacheco1.github.io/posts/how-i-failed-using-gcloud-functions/</link>
+      <pubDate>Wed, 12 Feb 2020 20:37:41 +0100</pubDate>
+      
+      <guid>https://brunopacheco1.github.io/posts/how-i-failed-using-gcloud-functions/</guid>
+      <description>This post is a follow-up to my previous article about Quarkus, Kotlin and GraalVM.
+I was proud to have finished the Snake game, which was working in multiplayer mode. However, I wanted to improve the gaming experience by addressing two areas: the interface and scalability. I decided to focus on scalability, but unfortunately, I failed.
+I have used Google Cloud Functions, Firebase, Firestore and Google Pub/Sub.
+Motivation In the original project, I used VertX for in-memory PubSub to manage the game events.</description>
+    </item>
     
     <item>
       <title>Pitch my team!</title>

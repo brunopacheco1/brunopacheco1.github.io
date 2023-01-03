@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="Bruno Pacheco">
+    <meta name="description" content="https://brunopacheco1.github.io">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <meta property="og:site_name" content="Bruno Pacheco">
+    <meta property="og:title" content="
+  How I failed using Google Cloud Functions - Bruno Pacheco
+">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://brunopacheco1.github.io/posts/how-i-failed-using-gcloud-functions/">
+    <meta property="og:image" content="https://brunopacheco1.github.ioimages/tn.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="https://brunopacheco1.github.io/posts/how-i-failed-using-gcloud-functions/">
+    <meta name="twitter:image" content="https://brunopacheco1.github.ioimages/tn.png">
+
+    <base href="https://brunopacheco1.github.io/posts/how-i-failed-using-gcloud-functions/">
+    <title>
+  How I failed using Google Cloud Functions - Bruno Pacheco
+</title>
+
+    <link rel="canonical" href="https://brunopacheco1.github.io/posts/how-i-failed-using-gcloud-functions/">
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    
+    <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:400,700">
+    <link rel="stylesheet" href="/css/normalize.min.css">
+    <link rel="stylesheet" href="/css/style.min.css">
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+    
+      <link rel="alternate" href="https://brunopacheco1.github.io/index.xml" type="application/rss+xml" title="Bruno Pacheco">
+      <link href="https://brunopacheco1.github.io/index.xml" rel="feed" type="application/rss+xml" title="Bruno Pacheco" />
+    
+
+    <meta name="generator" content="Hugo 0.109.0">
+  </head>
+
+  <body class="">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">Bruno Pacheco</a>
+    <input type="checkbox" id="menu-control"/>
+    <label class="menu-mobile  float-right " for="menu-control">
+      <span class="btn-mobile  float-right ">&#9776;</span>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="https://brunopacheco1.github.io/posts">Blog</a>
+            </li>
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="https://brunopacheco1.github.io/about">About</a>
+            </li>
+          
+        
+        
+      </ul>
+    </label>
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+  <article>
+    <header>
+      <h1 class="title">How I failed using Google Cloud Functions</h1>
+      <h2 class="date">February 12, 2020</h2>
+
+      
+    </header>
+
+    <p>This post is a follow-up to my previous article about <a href="/posts/quarkus-kotlin-and-graalvm">Quarkus, Kotlin and GraalVM</a>.</p>
+<p>I was proud to have finished the Snake game, which was working in multiplayer mode. However, I wanted to improve the gaming experience by addressing two areas: the interface and scalability. I decided to focus on scalability, but unfortunately, I failed.</p>
+<p>I have used <a href="https://firebase.google.com/docs/functions">Google Cloud Functions</a>, <a href="https://firebase.google.com/">Firebase</a>, <a href="https://firebase.google.com/docs/firestore">Firestore</a> and <a href="https://cloud.google.com/pubsub">Google Pub/Sub</a>.</p>
+<h1 id="motivation">Motivation</h1>
+<p>In the original project, I used <a href="https://vertx.io/">VertX</a> for in-memory PubSub to manage the game events. This is a powerful and versatile library that allowed me to write less coupled code, use resources efficiently, and simplify my work by providing an easy way to use EventSource and Server Sent Events. As a result, the interface was truly reactive.</p>
+<p>However, this was not a scalable solution because everything was done in memory. There are thousands of ways to do it, but I wanted to try Cloud Functions and see how it performs, if it has good performance, and if the code is easier to maintain and understand.</p>
+<h1 id="what-has-been-done">What has been done?</h1>
+<p>Coding the functions was the fastest part because the idea was already there thanks to the previous project. However, the learning curve took more time because I had to learn how to use Firebase to publish the functions, Firestore to persist the matches, and Pub/Sub to broadcast the events.</p>
+<p>The original code can be found <a href="https://github.com/brunopacheco1/worms">here</a>, and the serverless code can be found <a href="https://github.com/brunopacheco1/worms-serverless">here</a>.</p>
+<h1 id="what-have-i-found">What have I found?</h1>
+<p>If you are brave enough to compare the code, you can check the repos yourself, but here are my findings:</p>
+<p>Certainly, the code is much smaller using lambda functions. The code in Kotlin/Quarkus was more verbose because I had to code all the layers by myself (domain, dtos, repositories, services, controllers, exception handling). With lambda functions, I only needed the domain classes (specifically to initialize default values), the state evaluators, and controllers. I believe this is due to the language - Javascript is simpler and easier to manipulate objects, and Firebase provided me with easier ways to expose the endpoints and connect to all the components.</p>
+<p>Using Firebase and other Google Cloud products was easy and cost-effective, with clear documentation and smooth integration. However, Google Cloud Functions underperformed. In comparison, hosting the Worms game on a small instance provided a satisfactory gaming experience, while Google Cloud Functions made it impossible to play.</p>
+<h1 id="what-should-i-have-done">What should I have done?</h1>
+<ul>
+<li>I should have added stress tests to have a reliable way to compare both projects.</li>
+<li>I should have identified what needed to be improved in both projects. My initial thoughts were that the reduced amount of CPU power and latency when connecting to Firestore and Pub/Sub were issues. The slower first calls could also have been due to resource allocation.</li>
+<li>I should have properly documented the benchmark of both solutions to have concrete evidence to share.</li>
+</ul>
+<p><strong>See you | Bis geschwënn | Até mais | À bientôt</strong></p>
+
+  </article>
+
+  <br/>
+
+  
+  
+</section>
+
+      </div>
+      
+        <footer class="footer">
+  <section class="container">
+    
+      <div class="sns-shares sp-sns-shares">
+        
+          <a class="sns-share twitter-share" href="https://twitter.com/intent/tweet?original_referer=https%3a%2f%2fbrunopacheco1.github.io%2fposts%2fhow-i-failed-using-gcloud-functions%2f&ref_src=twsrc%5Etfw&text=How%20I%20failed%20using%20Google%20Cloud%20Functions Bruno%20Pacheco&tw_p=tweetbutton&url=https%3a%2f%2fbrunopacheco1.github.io%2fposts%2fhow-i-failed-using-gcloud-functions%2f"><i class="fab fa-twitter"></i></a>
+        
+        
+          <a class="fb btn sns-share fb-share" href="http://www.facebook.com/share.php?u=https%3a%2f%2fbrunopacheco1.github.io%2fposts%2fhow-i-failed-using-gcloud-functions%2f" onclick="window.open(this.href, 'FBwindow', 'width=650, height=450, menubar=no, toolbar=no, scrollbars=yes'); return false;"><i class="fab fa-facebook-f"></i></a>
+        
+        
+          <a class="sns-share hatena-share" href="http://b.hatena.ne.jp/entry/https://brunopacheco1.github.io/posts/how-i-failed-using-gcloud-functions/"  data-hatena-bookmark-layout="touch" data-hatena-bookmark-width="40" data-hatena-bookmark-height="40" title="このエントリーをはてなブックマークに追加"><i class="fas fa-bookmark"></i></a>
+        
+        
+          <a class="sns-share line-share" href="https://social-plugins.line.me/lineit/share?url=https%3a%2f%2fbrunopacheco1.github.io%2fposts%2fhow-i-failed-using-gcloud-functions%2f"><i class="fab fa-line"></i></a>
+        
+        
+          <a class="sns-share linkedIn-share" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3a%2f%2fbrunopacheco1.github.io%2fposts%2fhow-i-failed-using-gcloud-functions%2f"><i class="fab fa-linkedin"></i></a>
+        
+      </div>
+    
+    
+     © 2020    ·  Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/naro143/hugo-coder-portfolio">CoderPortfolio</a>. 
+
+  </section>
+</footer>
+<div class="fixed-bar">
+  <section class="container">
+    
+    
+      <div class="sns-shares pc-sns-shares">
+        
+          <a class="sns-share twitter-share" href="https://twitter.com/intent/tweet?original_referer=https%3a%2f%2fbrunopacheco1.github.io%2fposts%2fhow-i-failed-using-gcloud-functions%2f&ref_src=twsrc%5Etfw&text=How%20I%20failed%20using%20Google%20Cloud%20Functions Bruno%20Pacheco&tw_p=tweetbutton&url=https%3a%2f%2fbrunopacheco1.github.io%2fposts%2fhow-i-failed-using-gcloud-functions%2f"><i class="fab fa-twitter"></i></a>
+        
+        
+          <a class="fb btn sns-share fb-share" href="http://www.facebook.com/share.php?u=https%3a%2f%2fbrunopacheco1.github.io%2fposts%2fhow-i-failed-using-gcloud-functions%2f" onclick="window.open(this.href, 'FBwindow', 'width=650, height=450, menubar=no, toolbar=no, scrollbars=yes'); return false;"><i class="fab fa-facebook-f"></i></a>
+        
+        
+          <a class="sns-share hatena-share" href="http://b.hatena.ne.jp/entry/https://brunopacheco1.github.io/posts/how-i-failed-using-gcloud-functions/"  data-hatena-bookmark-layout="touch" data-hatena-bookmark-width="40" data-hatena-bookmark-height="40" title="このエントリーをはてなブックマークに追加"><i class="fas fa-bookmark"></i></a>
+        
+        
+          <a class="sns-share line-share" href="https://social-plugins.line.me/lineit/share?url=https%3a%2f%2fbrunopacheco1.github.io%2fposts%2fhow-i-failed-using-gcloud-functions%2f"><i class="fab fa-line"></i></a>
+        
+        
+          <a class="sns-share linkedIn-share" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3a%2f%2fbrunopacheco1.github.io%2fposts%2fhow-i-failed-using-gcloud-functions%2f"><i class="fab fa-linkedin"></i></a>
+        
+      </div>
+    
+  </section>
+</div>
+
+      
+    </main>
+
+    
+
+  <script src="/js/app.js"></script>
+  
+  </body>
+</html>

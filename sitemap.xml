@@ -1,43 +1,30 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
     <loc>https://brunopacheco1.github.io/</loc>
-    <lastmod>2019-11-23T08:02:28+01:00</lastmod>
-  </url>
-  
-  <url>
+    <lastmod>2020-02-12T20:37:41+01:00</lastmod>
+  </url><url>
+    <loc>https://brunopacheco1.github.io/posts/how-i-failed-using-gcloud-functions/</loc>
+    <lastmod>2020-02-12T20:37:41+01:00</lastmod>
+  </url><url>
+    <loc>https://brunopacheco1.github.io/posts/</loc>
+    <lastmod>2020-02-12T20:37:41+01:00</lastmod>
+  </url><url>
     <loc>https://brunopacheco1.github.io/posts/pitch-my-team/</loc>
     <lastmod>2019-11-23T08:02:28+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://brunopacheco1.github.io/posts/</loc>
-    <lastmod>2019-11-23T08:02:28+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://brunopacheco1.github.io/posts/quarkus-kotlin-and-graalvm/</loc>
     <lastmod>2019-11-18T22:05:30+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://brunopacheco1.github.io/posts/the-first-post/</loc>
     <lastmod>2019-10-28T22:38:36+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://brunopacheco1.github.io/about/</loc>
     <lastmod>2019-10-28T19:25:02+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://brunopacheco1.github.io/categories/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://brunopacheco1.github.io/tags/</loc>
   </url>
-  
 </urlset>

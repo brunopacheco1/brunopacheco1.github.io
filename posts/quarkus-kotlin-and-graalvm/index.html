@@ -31,22 +31,22 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     
     <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:400,700">
-    <link rel="stylesheet" href="https://brunopacheco1.github.io/css/normalize.min.css">
-    <link rel="stylesheet" href="https://brunopacheco1.github.io/css/style.min.css">
+    <link rel="stylesheet" href="/css/normalize.min.css">
+    <link rel="stylesheet" href="/css/style.min.css">
 
     
 
     
 
-    <link rel="icon" type="image/png" href="https://brunopacheco1.github.io/images/favicon-32x32.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="https://brunopacheco1.github.io/images/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
 
     
       <link rel="alternate" href="https://brunopacheco1.github.io/index.xml" type="application/rss+xml" title="Bruno Pacheco">
       <link href="https://brunopacheco1.github.io/index.xml" rel="feed" type="application/rss+xml" title="Bruno Pacheco" />
     
 
-    <meta name="generator" content="Hugo 0.59.0" />
+    <meta name="generator" content="Hugo 0.109.0">
   </head>
 
   <body class="">
@@ -87,132 +87,99 @@
       
     </header>
 
-    
-
-<p>During a chat with <a href="https://github.com/nerg4l">László</a>, I&rsquo;ve asked him for some ideas to practice Quarkus and GraalVM, he suggested to code the classic game Snake (AKA Worms by me :P).</p>
-
+    <p>During a chat with <a href="https://github.com/nerg4l">László</a>, I&rsquo;ve asked him for some ideas to practice Quarkus and GraalVM, he suggested to code the classic game Snake (AKA Worms by me :P).</p>
 <h3 id="motivations">Motivations</h3>
-
 <p>Why <a href="https://quarkus.io">Quarkus</a>? I&rsquo;ve read an article saying that Quarkus is a great and promising solution for Java in the Cloud, as it drastically reduces the application&rsquo;s footprint and has an insanely fast startup when running on native code.</p>
-
 <p><a href="https://www.graalvm.org/">GraalVM</a> is a general-purpose VM for running applications written in a bunch of different languages, allowing a polyglot code. At first glance, I felt it was an amazing thing to try, and so I did. In the end, this first trial wasn&rsquo;t fruitful, due to some strange bug on a node app I was coding at that time, so I just gave up for that moment.</p>
-
 <p><a href="https://kotlinlang.org/">Kotlin</a> has no reasonable arguments to be here except it is a brand-new Java dialect which I was already learning, but I have never used it on something substantial, so why not?</p>
-
 <h3 id="starting-the-adventure">Starting the adventure</h3>
-
 <p>I&rsquo;ve started the project just reading the guides on Quarkus.io, which are quite hands-on, but superficial. Quarkus is simple to use, as any recent framework for web development. So simple that in five minutes I had a rest service running locally&hellip; of course, an HTTP call returning a &ldquo;Hello World&rdquo; string doesn&rsquo;t deserve to be called a service, does it?</p>
-
 <p>So, to start your project from scratch, they have implemented a bootstrap command. Please refer to the followin command:</p>
-<div class="highlight"><pre class="chroma">mvn io.quarkus:quarkus-maven-plugin:1.0.0.CR1:create \
-    -DprojectGroupId=org.acme \
-    -DprojectArtifactId=getting-started \
-    -DclassName=&#34;org.acme.quickstart.GreetingResource&#34; \
-    -Dpath=&#34;/hello&#34;</pre></div>
-<p>And an easy way to add new dependencies:</p>
-<div class="highlight"><pre class="chroma">mvn quarkus:add-extension -Dextensions=&#34;vertx&#34;</pre></div>
-<p>Moving on, my first steps were: defining the domain, JPA, H2, a couple of CRUD endpoints and some DTOs. After having this square-shaped code, I decided to migrate it to Kotlin, and bugs started popping up as expected.</p>
-
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">mvn io.quarkus:quarkus-maven-plugin:1.0.0.CR1:create \
+</span></span><span class="line"><span class="cl">    -DprojectGroupId=org.acme \
+</span></span><span class="line"><span class="cl">    -DprojectArtifactId=getting-started \
+</span></span><span class="line"><span class="cl">    -DclassName=&#34;org.acme.quickstart.GreetingResource&#34; \
+</span></span><span class="line"><span class="cl">    -Dpath=&#34;/hello&#34;
+</span></span></code></pre></div><p>And an easy way to add new dependencies:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">mvn quarkus:add-extension -Dextensions=&#34;vertx&#34;
+</span></span></code></pre></div><p>Moving on, my first steps were: defining the domain, JPA, H2, a couple of CRUD endpoints and some DTOs. After having this square-shaped code, I decided to migrate it to Kotlin, and bugs started popping up as expected.</p>
 <p>The first problem which I had to face was JPA. It requires open classes and by default it isn&rsquo;t true for Kotlin. To fix this, there&rsquo;s a flag to enable JPA support during compilation. I don&rsquo;t like this kind of solution, but this is somewhat my fault as I wanted to use a mature Java library instead of using something more Kotlin-like.</p>
-
 <p>The second problem was the JSON payload serialization. I had some issues with JSON-B (the default option), and then I decided to try Jackson. Again, just for the sake of simplicity, as I was already testing tons of new things.</p>
-
 <p>It worked nicely and the DTOs were cleaner than before. However, another plugin had to be added to the Kotlin compiler (the no-arg plugin option) and a custom annotation to help the compiler identifying the DTOs.</p>
-<div class="highlight"><pre class="chroma">@Dto
-data class MatchMapPlayer(
-        var playerId: Long,
-        var status: MatchPlayerStatus = MatchPlayerStatus.PLAYING,
-        var wormLength: Int = 0,
-        var direction: Direction = Direction.DOWN,
-        var position: List&lt;MapPoint&gt; = arrayListOf()
-)</pre></div>
-<p>The third problem was similar to the JPA issue. All managed beans have to be open. Can you guess the solution? Yes another Kotlin compiler flag.</p>
-
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">@Dto
+</span></span><span class="line"><span class="cl">data class MatchMapPlayer(
+</span></span><span class="line"><span class="cl">        var playerId: Long,
+</span></span><span class="line"><span class="cl">        var status: MatchPlayerStatus = MatchPlayerStatus.PLAYING,
+</span></span><span class="line"><span class="cl">        var wormLength: Int = 0,
+</span></span><span class="line"><span class="cl">        var direction: Direction = Direction.DOWN,
+</span></span><span class="line"><span class="cl">        var position: List&lt;MapPoint&gt; = arrayListOf()
+</span></span><span class="line"><span class="cl">)
+</span></span></code></pre></div><p>The third problem was similar to the JPA issue. All managed beans have to be open. Can you guess the solution? Yes another Kotlin compiler flag.</p>
 <p>So, in the end, my Koltin compiler configuration looked like the following:</p>
-<div class="highlight"><pre class="chroma">&lt;configuration&gt;
-  &lt;compilerPlugins&gt;
-    &lt;plugin&gt;jpa&lt;/plugin&gt;
-    &lt;plugin&gt;no-arg&lt;/plugin&gt;
-    &lt;plugin&gt;all-open&lt;/plugin&gt;
-  &lt;/compilerPlugins&gt;
-  &lt;pluginOptions&gt;
-    &lt;option&gt;all-open:annotation=javax.ws.rs.Path&lt;/option&gt;
-    &lt;option&gt;all-open:annotation=javax.enterprise.context.ApplicationScoped&lt;/option&gt;
-    &lt;option&gt;all-open:annotation=javax.enterprise.context.RequestScoped&lt;/option&gt;
-    &lt;option&gt;all-open:annotation=javax.ws.rs.ext.Provider&lt;/option&gt;
-    &lt;option&gt;all-open:annotation=javax.persistence.MappedSuperclass&lt;/option&gt;
-    &lt;option&gt;all-open:annotation=javax.persistence.Entity&lt;/option&gt;
-    &lt;option&gt;all-open:annotation=javax.persistence.Embeddable&lt;/option&gt;
-    &lt;option&gt;no-arg:annotation=com.dev.bruno.worms.dto.Dto&lt;/option&gt;
-  &lt;/pluginOptions&gt;
-&lt;/configuration&gt;</pre></div>
-<p>I&rsquo;ve also created an abstract Repository class to have a common behavior for all entity repos (copying Spring), but I had a problem with the dependency injection in the superclass.</p>
-
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;configuration&gt;
+</span></span><span class="line"><span class="cl">  &lt;compilerPlugins&gt;
+</span></span><span class="line"><span class="cl">    &lt;plugin&gt;jpa&lt;/plugin&gt;
+</span></span><span class="line"><span class="cl">    &lt;plugin&gt;no-arg&lt;/plugin&gt;
+</span></span><span class="line"><span class="cl">    &lt;plugin&gt;all-open&lt;/plugin&gt;
+</span></span><span class="line"><span class="cl">  &lt;/compilerPlugins&gt;
+</span></span><span class="line"><span class="cl">  &lt;pluginOptions&gt;
+</span></span><span class="line"><span class="cl">    &lt;option&gt;all-open:annotation=javax.ws.rs.Path&lt;/option&gt;
+</span></span><span class="line"><span class="cl">    &lt;option&gt;all-open:annotation=javax.enterprise.context.ApplicationScoped&lt;/option&gt;
+</span></span><span class="line"><span class="cl">    &lt;option&gt;all-open:annotation=javax.enterprise.context.RequestScoped&lt;/option&gt;
+</span></span><span class="line"><span class="cl">    &lt;option&gt;all-open:annotation=javax.ws.rs.ext.Provider&lt;/option&gt;
+</span></span><span class="line"><span class="cl">    &lt;option&gt;all-open:annotation=javax.persistence.MappedSuperclass&lt;/option&gt;
+</span></span><span class="line"><span class="cl">    &lt;option&gt;all-open:annotation=javax.persistence.Entity&lt;/option&gt;
+</span></span><span class="line"><span class="cl">    &lt;option&gt;all-open:annotation=javax.persistence.Embeddable&lt;/option&gt;
+</span></span><span class="line"><span class="cl">    &lt;option&gt;no-arg:annotation=com.dev.bruno.worms.dto.Dto&lt;/option&gt;
+</span></span><span class="line"><span class="cl">  &lt;/pluginOptions&gt;
+</span></span><span class="line"><span class="cl">&lt;/configuration&gt;
+</span></span></code></pre></div><p>I&rsquo;ve also created an abstract Repository class to have a common behavior for all entity repos (copying Spring), but I had a problem with the dependency injection in the superclass.</p>
 <p>I tried using constructor dependency injection, passing it from the child to the superclass using super, but it hasn&rsquo;t worked properly. The work around was injecting the <code>EntityManager</code> directly in the field, like this:</p>
-<div class="highlight"><pre class="chroma">    @PersistenceContext
-    protected lateinit var em: EntityManager</pre></div>
-<p>Then, I had to change all <code>@OnToMany</code> from <code>List</code>/<code>Set</code> to <code>MutableList</code>/<code>MutableSet</code>.</p>
-
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">    @PersistenceContext
+</span></span><span class="line"><span class="cl">    protected lateinit var em: EntityManager
+</span></span></code></pre></div><p>Then, I had to change all <code>@OnToMany</code> from <code>List</code>/<code>Set</code> to <code>MutableList</code>/<code>MutableSet</code>.</p>
 <p>And finally, I don&rsquo;t remember why, but now all fields in the domain and DTO classes were <code>var</code>, instead of <code>val</code>. I have to check why again.</p>
-
 <p>I&rsquo;ve also implemented some business code, which is not important to discuss here (but if you are interested, go to
 <a href="https://github.com/brunopacheco1/worms/tree/master/src/main/kotlin/com/dev/bruno/worms/evaluation">this link</a>).</p>
-
 <h3 id="and-graalvm-enters-the-scene">And GraalVM enters the scene&hellip;</h3>
-
 <p>After trespassing the first barrier, I was ready for the next boss (the final one?): compiling the project to native code.</p>
-
 <p>According to Quarkus.io, this shouldn&rsquo;t be complicated as they aim to simplify native code compilation using their on maven plugin. Even their guides being simplistic, they are not lying. But they could have mentioned the Reflection limitation in GraalVM, which will be explained in the following lines.</p>
-
 <p>So, to build the app, you have to run a similar mvn command:</p>
-<div class="highlight"><pre class="chroma"><span class="nx">mvn</span> <span class="nx">clean</span> <span class="kn">package</span> <span class="o">-</span><span class="nx">Pnative</span> <span class="o">-</span><span class="nx">Dnative</span><span class="o">-</span><span class="nx">image</span><span class="p">.</span><span class="nx">docker</span><span class="o">-</span><span class="nx">build</span><span class="p">=</span><span class="kc">true</span></pre></div>
-<p>By the way, I was building a containerized native code, that&rsquo;s why there&rsquo;s this docker-build arg. They also provide a dockerfile sample.</p>
-
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">mvn</span> <span class="nx">clean</span> <span class="kn">package</span> <span class="o">-</span><span class="nx">Pnative</span> <span class="o">-</span><span class="nx">Dnative</span><span class="o">-</span><span class="nx">image</span><span class="p">.</span><span class="nx">docker</span><span class="o">-</span><span class="nx">build</span><span class="p">=</span><span class="kc">true</span>
+</span></span></code></pre></div><p>By the way, I was building a containerized native code, that&rsquo;s why there&rsquo;s this docker-build arg. They also provide a dockerfile sample.</p>
 <p>I thought at this stage that would be enough, but no. After running the build and running the app on Docker, I faced exceptions on Jackson. So, reflection is not supported by default on native code and it took me a while to understand why, and a bit more to find a way to fix it.</p>
-
 <p>On a side note, the build consumes a lot of memory and CPU, almost killing my old Lenovo. :(</p>
-
 <p>So, GraalVM does allow you to use reflection, but for that, you need to add a config file, located at <code>META-INF/native-image/reflect-config.json</code> (it can be in a different folder with a different name, but this is the default path).</p>
-
 <p>First I decided not to manually write this file, and after googling I&rsquo;ve found this <a href="https://link.medium.com/n2us7AWxF1">blog</a> presenting an agent to do this job. The idea is to observe the JVM during runtime and generate the config.</p>
-
 <p>To do this, you simply have to run the app with the following command:</p>
-<div class="highlight"><pre class="chroma">$JAVA_HOME/bin/java -agentlib:native-image-agent=config-output-dir=META-INF/native-image your.jar</pre></div>
-<p>After running the app with this agent, the generated file was hugely polluted and it didn&rsquo;t fix the problem anyway, as the agent didn&rsquo;t add all needed classes. So, I ended up typing the file manually. And surprisingly, I only had to add the DTO classes.</p>
-
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$JAVA_HOME/bin/java -agentlib:native-image-agent=config-output-dir=META-INF/native-image your.jar
+</span></span></code></pre></div><p>After running the app with this agent, the generated file was hugely polluted and it didn&rsquo;t fix the problem anyway, as the agent didn&rsquo;t add all needed classes. So, I ended up typing the file manually. And surprisingly, I only had to add the DTO classes.</p>
 <p>The file should look something like this:</p>
-<div class="highlight"><pre class="chroma">[
-  {
-    &#34;name&#34;: &#34;com.dev.bruno.worms.dto.ExceptionResponse&#34;,
-    &#34;allDeclaredConstructors&#34;: true,
-    &#34;allPublicConstructors&#34;: true,
-    &#34;allDeclaredMethods&#34;: true,
-    &#34;allPublicMethods&#34;: true,
-    &#34;allDeclaredClasses&#34;: true,
-    &#34;allPublicClasses&#34;: true,
-    &#34;fields&#34;: [
-      {
-        &#34;name&#34;: &#34;message&#34;,
-        &#34;allowWrite&#34;: true
-      }
-    ]
-  }
-  ...
-]</pre></div>
-<h3 id="conclusions">Conclusions</h3>
-
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[
+</span></span><span class="line"><span class="cl">  {
+</span></span><span class="line"><span class="cl">    &#34;name&#34;: &#34;com.dev.bruno.worms.dto.ExceptionResponse&#34;,
+</span></span><span class="line"><span class="cl">    &#34;allDeclaredConstructors&#34;: true,
+</span></span><span class="line"><span class="cl">    &#34;allPublicConstructors&#34;: true,
+</span></span><span class="line"><span class="cl">    &#34;allDeclaredMethods&#34;: true,
+</span></span><span class="line"><span class="cl">    &#34;allPublicMethods&#34;: true,
+</span></span><span class="line"><span class="cl">    &#34;allDeclaredClasses&#34;: true,
+</span></span><span class="line"><span class="cl">    &#34;allPublicClasses&#34;: true,
+</span></span><span class="line"><span class="cl">    &#34;fields&#34;: [
+</span></span><span class="line"><span class="cl">      {
+</span></span><span class="line"><span class="cl">        &#34;name&#34;: &#34;message&#34;,
+</span></span><span class="line"><span class="cl">        &#34;allowWrite&#34;: true
+</span></span><span class="line"><span class="cl">      }
+</span></span><span class="line"><span class="cl">    ]
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">  ...
+</span></span><span class="line"><span class="cl">]
+</span></span></code></pre></div><h3 id="conclusions">Conclusions</h3>
 <p>I do recognize the benefits of using Kotlin such as nullability, immutability, less verbose code, tons of new coder-friendly functions, however they are not that important when you have clean code and efficient testing.</p>
-
 <p>Also, I don&rsquo;t like polluted POM files, and it annoyed me having to add build plugins, compiler flags and configurations. I felt guilty about using JPA and Jackson though. Perhaps, if I had used something more Kotlin oriented, I wouldn&rsquo;t have had these issues. Let&rsquo;s see what happens in the next project.</p>
-
 <p>Quarkus has an insanely fast startup indeed, and the memory footprint is great. I have used a micro instance on Google Cloud to test the game, and it handled properly the load, without crashing anything. Quarkus is a bit immature yet, as it required some refactoring when I decided to move to newer versions. Nonetheless, it is promising, as it has huge support for different technologies and libraries. I&rsquo;ll use it again.</p>
-
 <p>I have loved GraalVM at first sight, as the wish of a polyglot code is in my mind for a while, and now it&rsquo;s becoming reality. In the end, I didn&rsquo;t use this feature, however, the native code generation fascinated me as well. I didn&rsquo;t like the way it consumes resources though. Compiling any other language code to native is not consuming 10% of what GraalVM has consumed from my machine (not judging&hellip;). I would wait for improvements on this area before using it on commercial solutions.</p>
-
 <p>To sum up: I have enjoyed playing with all these new technologies all together. Due to time and availability constraints, I couldn&rsquo;t investigate more. Perhaps improving and refactoring the code. The final solution is not bad and it has proven to me that Java definitely can be used in the cloud, it&rsquo;s just a matter of investment in new solutions, like Quarkus and GraalVM.</p>
-
 <p>Please, refer to the project <a href="https://github.com/brunopacheco1/worms">repository</a> to have a better picture of what I have coded. And feel free to comment out there.</p>
-
 <p><strong>See you | Bis geschwënn | Até mais | À bientôt</strong></p>
 
   </article>
@@ -247,7 +214,7 @@ data class MatchMapPlayer(
       </div>
     
     
-     © 2019    ·  Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/naro143/hugo-coder-portfolio">CoderPortfolio</a>. 
+     © 2020    ·  Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/naro143/hugo-coder-portfolio">CoderPortfolio</a>. 
 
   </section>
 </footer>
@@ -281,7 +248,7 @@ data class MatchMapPlayer(
 
     
 
-  <script src="https://brunopacheco1.github.io/js/app.js"></script>
+  <script src="/js/app.js"></script>
   
   </body>
 </html>
