@@ -6,7 +6,18 @@
     <description>Recent content on Bruno Pacheco</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 12 Feb 2020 20:37:41 +0100</lastBuildDate><atom:link href="https://brunopacheco1.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 04 Jan 2023 00:34:00 +0100</lastBuildDate><atom:link href="https://brunopacheco1.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Covid led me to my first open-source contribution.</title>
+      <link>https://brunopacheco1.github.io/posts/covid-led-me-to-my-first-opensource-contribution/</link>
+      <pubDate>Wed, 04 Jan 2023 00:34:00 +0100</pubDate>
+      
+      <guid>https://brunopacheco1.github.io/posts/covid-led-me-to-my-first-opensource-contribution/</guid>
+      <description>It&amp;rsquo;s been a while since I&amp;rsquo;ve shared anything here. Mostly because my interests and priorities have changed. But now I&amp;rsquo;m back, and I hope to produce more content.
+Let&amp;rsquo;s go back to 2020, when I stopped writing. The Covid era, baby!
+There were people going crazy because they couldn&amp;rsquo;t see other people. There were people baking bread and brewing beer at home. And I was becoming a first-time parent, or at least starting the journey.</description>
+    </item>
+    
     <item>
       <title>How I failed using Google Cloud Functions</title>
       <link>https://brunopacheco1.github.io/posts/how-i-failed-using-gcloud-functions/</link>
@@ -58,8 +69,9 @@ Especial thanks to László for pushing me to do that and showing this great too
       <pubDate>Mon, 28 Oct 2019 19:25:02 +0200</pubDate>
       
       <guid>https://brunopacheco1.github.io/about/</guid>
-      <description>I&amp;rsquo;m graduated in Computer Science and I have an MBA in Software Engineering by Federal University of Rio de Janeiro. I&amp;rsquo;ve been working as a software developer for more than 10 years already, mainly in Agile projects.
-Most of my experience is related to Java (Spring and J2E), but I have also professional experience in PHP and JavaScript. Lately, I&amp;rsquo;ve played with R, Scala, Kotlin, Python and a bunch of different technologies, in order to catch up with the trends and push myself.</description>
+      <description>I am a highly skilled software engineer with a strong background in computer science and in software engineering.
+With 15 years of experience, I have expertise in various programming languages and technologies, including Java (Spring and J2EE), PHP, and JavaScript. I am a fast learner and adapt easily to new environments, and am known for my reliability and ability to consistently deliver high-quality work on time.
+In addition, I have kept up with industry trends by experimenting with languages such as R, Scala, Kotlin, and Python.</description>
     </item>
     
   </channel>

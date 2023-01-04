@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="Bruno Pacheco">
+    <meta name="description" content="https://brunopacheco1.github.io">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <meta property="og:site_name" content="Bruno Pacheco">
+    <meta property="og:title" content="
+  Covid led me to my first open-source contribution. - Bruno Pacheco
+">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://brunopacheco1.github.io/posts/covid-led-me-to-my-first-opensource-contribution/">
+    <meta property="og:image" content="https://brunopacheco1.github.ioimages/tn.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="https://brunopacheco1.github.io/posts/covid-led-me-to-my-first-opensource-contribution/">
+    <meta name="twitter:image" content="https://brunopacheco1.github.ioimages/tn.png">
+
+    <base href="https://brunopacheco1.github.io/posts/covid-led-me-to-my-first-opensource-contribution/">
+    <title>
+  Covid led me to my first open-source contribution. - Bruno Pacheco
+</title>
+
+    <link rel="canonical" href="https://brunopacheco1.github.io/posts/covid-led-me-to-my-first-opensource-contribution/">
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    
+    <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:400,700">
+    <link rel="stylesheet" href="/css/normalize.min.css">
+    <link rel="stylesheet" href="/css/style.min.css">
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+    
+      <link rel="alternate" href="https://brunopacheco1.github.io/index.xml" type="application/rss+xml" title="Bruno Pacheco">
+      <link href="https://brunopacheco1.github.io/index.xml" rel="feed" type="application/rss+xml" title="Bruno Pacheco" />
+    
+
+    <meta name="generator" content="Hugo 0.109.0">
+  </head>
+
+  <body class="">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">Bruno Pacheco</a>
+    <input type="checkbox" id="menu-control"/>
+    <label class="menu-mobile  float-right " for="menu-control">
+      <span class="btn-mobile  float-right ">&#9776;</span>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="https://brunopacheco1.github.io/posts">Blog</a>
+            </li>
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="https://brunopacheco1.github.io/about">About</a>
+            </li>
+          
+        
+        
+      </ul>
+    </label>
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+  <article>
+    <header>
+      <h1 class="title">Covid led me to my first open-source contribution.</h1>
+      <h2 class="date">January 4, 2023</h2>
+
+      
+    </header>
+
+    <p>It&rsquo;s been a while since I&rsquo;ve shared anything here. Mostly because my interests and priorities have changed. But now I&rsquo;m back, and I hope to produce more content.</p>
+<p>Let&rsquo;s go back to 2020, when I stopped writing. The Covid era, baby!</p>
+<p>There were people going crazy because they couldn&rsquo;t see other people. There were people baking bread and brewing beer at home. And I was becoming a first-time parent, or at least starting the journey.</p>
+<p>I&rsquo;m an engineer by love and a developer to the bone. Like everyone else, I was looking for something to focus my thoughts on. And an article about a COBOL system that was overloaded in the US caught my attention. Of course, I had heard of COBOL in university, but the most &ldquo;hardcore&rdquo; language I had briefly touched was C/C++.</p>
+<p>I was bored, and I didn&rsquo;t want to see more of REST, more of C-like languages, or more of architectural problems. I wanted something more basic, easy to start and easy to stop. Why not COBOL? I thought it might be useful in the future.</p>
+<p>So, like any developer would do, I started a web course. If you&rsquo;re interested, you can check it out on <a href="https://www.linkedin.com/learning/learning-cobol-2015">LinkedIn Learning</a>.</p>
+<p>What did I find out? COBOL is an elitist and segregating language. You have to have access to mainframes to code, and you have to have access to paid tools to code and debug. There is only one open-source compiler for COBOL, <a href="https://gnucobol.sourceforge.io/">GnuCOBOL</a>. And when I started my journey, there were zero open-source debuggers.</p>
+<p>I was totally disappointed. How could that be? COBOL is a f**** old language. So I started digging around forums and I found an IBM learning platform that was oriented towards COBOL. If I remember correctly, the students got access to mainframes. But one thing caught my attention: there was another frustrated person complaining about the lack of open-source tools to code on a regular computer. They shared that they were writing a <a href="https://marketplace.visualstudio.com/items?itemName=OlegKunitsyn.gnucobol-debug">COBOL debugger</a> for VSCode.</p>
+<p>I tried out that tool and I thought it was a great idea. But soon I realized it wasn&rsquo;t mature enough to debug even one of the simplest tasks I did in the web course I mentioned.</p>
+<p>Well, as we say in Rio, I had the cheese and the knife in my hands. I&rsquo;m a developer, and I wanted to learn COBOL. So why not contribute to that tool? That little comment turned my course in a divergent direction. Soon I forgot about &ldquo;how to read a file in COBOL&rdquo; and started asking &ldquo;how GnuCOBOL transpiles code into C&rdquo;, &ldquo;how to debug C in the command line&rdquo;, and &ldquo;how gdb integrates with VSCode.&rdquo;</p>
+<p>In the middle of the project, I was already in touch with GnuCOBOL developers, asking them for new compiler features to help debug float and binary data types supported by that compiler. I was also adding support for JavaScript expressions in the debugger inspection view. And in my latest contributions, I was working on debugging remote processes and SSH tunneling.</p>
+<p>All of this, all of those long nights coding, just because of a comment on a forum about COBOL.</p>
+<p>And you know what? It was an amazing experience. I learned a lot of things, perhaps nothing directly useful for my current daily duties, but at least I contributed to an open-source project, impacting the lives of thousands of other anonymous developers.</p>
+<p><strong>See you | Bis geschwënn | Até mais | À bientôt</strong></p>
+
+  </article>
+
+  <br/>
+
+  
+  
+</section>
+
+      </div>
+      
+        <footer class="footer">
+  <section class="container">
+    
+      <div class="sns-shares sp-sns-shares">
+        
+          <a class="sns-share twitter-share" href="https://twitter.com/intent/tweet?original_referer=https%3a%2f%2fbrunopacheco1.github.io%2fposts%2fcovid-led-me-to-my-first-opensource-contribution%2f&ref_src=twsrc%5Etfw&text=Covid%20led%20me%20to%20my%20first%20open-source%20contribution. Bruno%20Pacheco&tw_p=tweetbutton&url=https%3a%2f%2fbrunopacheco1.github.io%2fposts%2fcovid-led-me-to-my-first-opensource-contribution%2f"><i class="fab fa-twitter"></i></a>
+        
+        
+          <a class="fb btn sns-share fb-share" href="http://www.facebook.com/share.php?u=https%3a%2f%2fbrunopacheco1.github.io%2fposts%2fcovid-led-me-to-my-first-opensource-contribution%2f" onclick="window.open(this.href, 'FBwindow', 'width=650, height=450, menubar=no, toolbar=no, scrollbars=yes'); return false;"><i class="fab fa-facebook-f"></i></a>
+        
+        
+          <a class="sns-share hatena-share" href="http://b.hatena.ne.jp/entry/https://brunopacheco1.github.io/posts/covid-led-me-to-my-first-opensource-contribution/"  data-hatena-bookmark-layout="touch" data-hatena-bookmark-width="40" data-hatena-bookmark-height="40" title="このエントリーをはてなブックマークに追加"><i class="fas fa-bookmark"></i></a>
+        
+        
+          <a class="sns-share line-share" href="https://social-plugins.line.me/lineit/share?url=https%3a%2f%2fbrunopacheco1.github.io%2fposts%2fcovid-led-me-to-my-first-opensource-contribution%2f"><i class="fab fa-line"></i></a>
+        
+        
+          <a class="sns-share linkedIn-share" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3a%2f%2fbrunopacheco1.github.io%2fposts%2fcovid-led-me-to-my-first-opensource-contribution%2f"><i class="fab fa-linkedin"></i></a>
+        
+      </div>
+    
+    
+     © 2023    ·  Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/naro143/hugo-coder-portfolio">CoderPortfolio</a>. 
+
+  </section>
+</footer>
+<div class="fixed-bar">
+  <section class="container">
+    
+    
+      <div class="sns-shares pc-sns-shares">
+        
+          <a class="sns-share twitter-share" href="https://twitter.com/intent/tweet?original_referer=https%3a%2f%2fbrunopacheco1.github.io%2fposts%2fcovid-led-me-to-my-first-opensource-contribution%2f&ref_src=twsrc%5Etfw&text=Covid%20led%20me%20to%20my%20first%20open-source%20contribution. Bruno%20Pacheco&tw_p=tweetbutton&url=https%3a%2f%2fbrunopacheco1.github.io%2fposts%2fcovid-led-me-to-my-first-opensource-contribution%2f"><i class="fab fa-twitter"></i></a>
+        
+        
+          <a class="fb btn sns-share fb-share" href="http://www.facebook.com/share.php?u=https%3a%2f%2fbrunopacheco1.github.io%2fposts%2fcovid-led-me-to-my-first-opensource-contribution%2f" onclick="window.open(this.href, 'FBwindow', 'width=650, height=450, menubar=no, toolbar=no, scrollbars=yes'); return false;"><i class="fab fa-facebook-f"></i></a>
+        
+        
+          <a class="sns-share hatena-share" href="http://b.hatena.ne.jp/entry/https://brunopacheco1.github.io/posts/covid-led-me-to-my-first-opensource-contribution/"  data-hatena-bookmark-layout="touch" data-hatena-bookmark-width="40" data-hatena-bookmark-height="40" title="このエントリーをはてなブックマークに追加"><i class="fas fa-bookmark"></i></a>
+        
+        
+          <a class="sns-share line-share" href="https://social-plugins.line.me/lineit/share?url=https%3a%2f%2fbrunopacheco1.github.io%2fposts%2fcovid-led-me-to-my-first-opensource-contribution%2f"><i class="fab fa-line"></i></a>
+        
+        
+          <a class="sns-share linkedIn-share" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3a%2f%2fbrunopacheco1.github.io%2fposts%2fcovid-led-me-to-my-first-opensource-contribution%2f"><i class="fab fa-linkedin"></i></a>
+        
+      </div>
+    
+  </section>
+</div>
+
+      
+    </main>
+
+    
+
+  <script src="/js/app.js"></script>
+  
+  </body>
+</html>
