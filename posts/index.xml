@@ -6,7 +6,17 @@
     <description>Recent content in Posts on Bruno Pacheco</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 07 Jan 2023 22:00:00 +0100</lastBuildDate><atom:link href="https://brunopacheco1.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 24 Jan 2023 02:11:00 +0100</lastBuildDate><atom:link href="https://brunopacheco1.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Optimizing Decision Making with a Trie Tree-Based Rules Engine: An Experience Report</title>
+      <link>https://brunopacheco1.github.io/posts/optimizing-decision-making-with-trie-tree/</link>
+      <pubDate>Tue, 24 Jan 2023 02:11:00 +0100</pubDate>
+      
+      <guid>https://brunopacheco1.github.io/posts/optimizing-decision-making-with-trie-tree/</guid>
+      <description>In Pictet Technologies, my team relies a lot on decision models. These models allow our business analysts to input Compliance business rules directly into the systems with minimal developer intervention. When I joined the company, we used to use both Drools and Camunda. However, we faced severe memory and performance issues, specifically with Camunda, prompting me to explore alternatives.
+For those not familiar with these solutions, both are rules engine providers.</description>
+    </item>
+    
     <item>
       <title>Staying Sharp in Software Engineering</title>
       <link>https://brunopacheco1.github.io/posts/staying-sharp-in-software-engineering/</link>
