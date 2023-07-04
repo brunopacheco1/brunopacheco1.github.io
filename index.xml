@@ -6,7 +6,17 @@
     <description>Recent content on Bruno Pacheco</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 05 Feb 2023 03:07:00 +0100</lastBuildDate><atom:link href="https://brunopacheco1.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 04 Jul 2023 21:49:00 +0100</lastBuildDate><atom:link href="https://brunopacheco1.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>My journey to Open Data</title>
+      <link>https://brunopacheco1.github.io/posts/my-journey-to-open-data/</link>
+      <pubDate>Tue, 04 Jul 2023 21:49:00 +0100</pubDate>
+      
+      <guid>https://brunopacheco1.github.io/posts/my-journey-to-open-data/</guid>
+      <description>Well, this is not exactly a technical article. This post describes the end of a quest, and the beginning of a new journey: my first step towards Open Data, a world of fairy, strange people willing to change the world.
+My first contact with that world happened two years ago when I started learning Luxembourgish. Quickly, I discovered the lack of online content, community support, and learning tools. Then I decided to use my superpowers to build an application called LOD to Anki.</description>
+    </item>
+    
     <item>
       <title>The secret of long-lasting code</title>
       <link>https://brunopacheco1.github.io/posts/the-secret-of-long-lasting-code/</link>
