@@ -35,9 +35,15 @@ weight = 1
 url = "https://gitlab.com/brunopacheco1"
 
 [[params.social]]
+name = "Eclipse Foundation"
+icon = "fa fa-2x fa-git"
+weight = 1
+url = "https://gitlab.eclipse.org/brunopacheco1"
+
+[[params.social]]
 name = "LinkedIn"
 icon = "fa fa-2x fa-linkedin"
-weight = 2
+weight = 1
 url = "https://www.linkedin.com/in/brunopacheco1/"
 
 # Menu links
