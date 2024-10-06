@@ -1,6 +1,6 @@
 +++ 
 draft = false
-date = 2024-10-06T23:49:00+01:00
+date = 2024-10-06T21:49:00+01:00
 title = "Say hello to FreeBSD"
 slug = "" 
 tags = []
