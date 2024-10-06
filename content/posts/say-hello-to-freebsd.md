@@ -15,11 +15,9 @@ Hello, Bestie!
 
 I started the hobby of testing operating systems somewhere between 2006 and 2009. However, like many of you, I relied solely on social media to document my experiences. Unfortunately, much like the Library of Alexandria, Orkut is lost — though not necessarily as significant in terms of historical relevance.
 
-Back then, I experimented tons of different Linux distros, including a Brazilian one called Kurumin Linux!
+Back then, I experimented tons of different Linux distros, including a Brazilian one called [Kurumin Linux](https://archiveos.org/kurumin/)!
 
-![Kurumin Linux](/images/say-hello-to-freebsd/kurumin.png)
-
-I also explored some unconventional systems, like BeOS, OpenSolaris, OpenDarwin, and others I can no longer recall. VirtualBox was a lifesaver when hardware support was lacking — unsupported hardware is always the ultimate barrier — but whenever possible, I tested systems directly on my machine.
+I also explored some unconventional systems, like [BeOS](https://archiveos.org/beos/), [OpenSolaris](https://archiveos.org/opensolaris/), [OpenDarwin](https://archiveos.org/opendarwin/), and others I can no longer recall. VirtualBox was a lifesaver when hardware support was lacking — unsupported hardware is always the ultimate barrier — but whenever possible, I tested systems directly on my machine.
 
 I remember spending hours downloading images and burning them onto CDs. My desktop was decent but still slow and limited, so installations could take up to an hour, not to mention the configuration and updates. Any mistake meant starting over from scratch. Actually, my first Debian experience came from a CD I requested online, which I received a few weeks later. I can’t fully express the mix of emotions I felt with each attempt: exhaustion, joy, frustration, accomplishment, anger, happiness, and even occasional anxiety.
 
@@ -33,10 +31,10 @@ While searching for a new laptop, all those memories came flooding back. I decid
 
 Now it's 2024, and the FreeBSD ecosystem has evolved for the better. Ports and compilation are still necessary for things like certain drivers and DRM-protected content (e.g., Netflix and Spotify), but they are no longer the default or the only option available. It takes just 5 minutes to install the entire OS, followed by several extra hours to configure every possible aspect — from screen brightness adjustments and automatic switching when headphones are detected, to automounting USB drives and optimizing CPU frequency.
 
-The result is once more fantastic, fast, reliable and secure.
+The result is once more fantastic, a fast, reliable and secure operating system.
 
 ![System monitor](/images/say-hello-to-freebsd/freebsd_screenshot.png)
 
-I will follow this post with instructions on how to install FreeBSD 14.1 on my hardware.
+P.S.: I will follow this post with instructions on how to install FreeBSD 14.1 on my hardware.
 
 **See you | Bis geschwënn | Até mais | À bientôt | Ciao**
