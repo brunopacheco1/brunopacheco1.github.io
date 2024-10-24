@@ -1,0 +1,25 @@
+languageCode = "en"
+languageName = "English"
+languageDirection = "ltr"
+weight = 1
+
+title = "Home"
+# copyright = "Copy, _right?_ :thinking_face:"
+
+[params]
+  dateFormat = "2 January 2006"
+
+  # mainSections = ["section1", "section2"]
+  # description = "My awesome website"
+
+[params.author]
+  name = "Bruno Pacheco"
+  image = "images/avatar.jpg"
+  headline = "Software engineer and agile evangelist"
+  bio = "A software engineer that loves learning new languages, writing, and coding."
+  links = [
+    { email = "mailto:brunopacheco1@yahoo.com" },
+    { dev = "https://dev.to/brunopacheco1" },
+    { github = "https://github.com/brunopacheco1" },
+    { linkedin = "https://linkedin.com/in/brunopacheco1" }
+  ]
