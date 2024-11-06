@@ -1,12 +1,6 @@
 +++ 
-draft = false
 date = 2019-11-23T08:02:28+01:00
-title = "Pitch my team"
-slug = "" 
-tags = []
-categories = []
-thumbnail = "images/tn.png"
-description = ""
+title = "event: Pitch my team"
 +++
 
 Yesterday we had the "Pitch my team!" in Pictet Technologies, where we had 5 minutes to share what we've been doing in 2019. I wasn't excited about it when they asked us to do it, you know, me going to a stage, grabbing a mic a say something to hundred people.

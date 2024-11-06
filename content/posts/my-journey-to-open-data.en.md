@@ -1,12 +1,6 @@
 +++ 
-draft = false
 date = 2023-07-04T21:49:00+01:00
 title = "My journey to Open Data"
-slug = "" 
-tags = []
-categories = []
-thumbnail = "images/tn.png"
-description = ""
 +++
 
 Well, this is not exactly a technical article. This post describes the end of a quest, and the beginning of a new journey: my first step towards Open Data, a world of fairy, strange people willing to change the world.

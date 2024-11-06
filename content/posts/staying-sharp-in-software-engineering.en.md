@@ -1,12 +1,6 @@
 +++ 
-draft = false
 date = 2023-01-07T22:00:00+01:00
 title = "Staying Sharp in Software Engineering"
-slug = "" 
-tags = []
-categories = []
-thumbnail = "images/tn.png"
-description = ""
 +++
 
 When it comes to working, learning is often a key concern. That is especially true in software engineering, where there is always a way to do something faster, cheaper, or better, which often requires new technologies. In this field, it is also crucial to ensure high-quality code. That includes not only coding, but also dependency management, testing, code review, continuous integration and deployment, tracing, monitoring, and measuring.

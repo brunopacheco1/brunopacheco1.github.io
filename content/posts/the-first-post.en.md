@@ -1,13 +1,6 @@
 +++ 
-draft = false
 date = 2019-10-28T22:38:36+02:00
-title = "The First Post"
-description = "Initial commit. :P"
-slug = "" 
-tags = []
-categories = []
-externalLink = ""
-series = []
+title = "Initial commit. :P"
 +++
 
 This is the first post in my personal blog. XD

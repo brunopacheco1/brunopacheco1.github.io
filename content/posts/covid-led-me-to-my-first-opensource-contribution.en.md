@@ -1,12 +1,6 @@
 +++ 
-draft = false
 date = 2023-01-04T00:34:00+01:00
 title = "Covid led me to my first open-source contribution"
-slug = "" 
-tags = []
-categories = []
-thumbnail = "images/tn.png"
-description = ""
 +++
 
 It's been a while since I've shared anything here. Mostly because my interests and priorities have changed. But now I'm back, and I hope to produce more content.

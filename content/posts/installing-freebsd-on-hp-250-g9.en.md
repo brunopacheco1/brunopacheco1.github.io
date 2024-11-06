@@ -1,12 +1,6 @@
 +++ 
-draft = false
 date = 2024-10-28T18:49:00+01:00
 title = "Installing FreeBSD on a HP 250 G9"
-slug = "" 
-tags = []
-categories = []
-thumbnail = "images/tn.png"
-description = ""
 +++
 
 I’ve acquired a Hewlett-Packard 250 15.6-inch G9 laptop with an Intel 12th Gen Core i3-1215U, 8GB of RAM, and a 500GB SSD. Not impressive hardware, I admit, but I will not run a lot of things locally anyway. So, let’s go directly to the point.

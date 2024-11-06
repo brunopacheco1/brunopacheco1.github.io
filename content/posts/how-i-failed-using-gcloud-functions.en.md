@@ -1,12 +1,6 @@
 +++ 
-draft = false
 date = 2020-02-12T20:37:41+01:00
 title = "How I failed using Google Cloud Functions"
-slug = "" 
-tags = []
-categories = []
-thumbnail = "images/tn.png"
-description = ""
 +++
 
 This post is a follow-up to my previous article about [Quarkus, Kotlin and GraalVM](/posts/quarkus-kotlin-and-graalvm).
