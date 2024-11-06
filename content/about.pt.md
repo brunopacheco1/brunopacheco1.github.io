@@ -2,7 +2,6 @@
 menus = 'main'
 title = 'Sobre'
 date = 2024-10-24T19:25:02+02:00
-draft = false
 +++
 
 Eu tenho uma sólida base em diversas linguagens de programação e tecnologias. Aprendo rapidamente, sou capaz de adquirir novas habilidades e me adaptar rapidamente a novos ambientes.

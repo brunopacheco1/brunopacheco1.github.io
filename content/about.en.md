@@ -2,7 +2,6 @@
 menus = 'main'
 title = 'About'
 date = 2024-10-24T19:25:02+02:00
-draft = false
 +++
 
 I have a strong foundation in various programming languages and technologies. I am a fast learner who is able to quickly pick up new skills and adapt to new environments.
