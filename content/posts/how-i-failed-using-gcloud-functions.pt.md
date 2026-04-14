@@ -1,6 +1,7 @@
 +++ 
 date = 2020-02-12T20:37:41+01:00
 title = "Como eu falhei ao usar Google Cloud Functions"
+categories = ["Coding"]
 +++
 
 Este post é uma continuação do meu artigo anterior sobre [Quarkus, Kotlin e GraalVM](/posts/pt/quarkus-kotlin-and-graalvm).

@@ -1,6 +1,7 @@
 +++
 date = 2019-11-23T08:02:28+01:00
 title = "evento: Pitch my team"
+categories = ["Journal"]
 +++
 
 Ontem tivemos o evento "Pitch my team!" na Pictet Technologies, onde tivemos 5 minutos para compartilhar o que fizemos em 2019. Eu não estava muito animado quando pediram para fazermos isso; afinal, ir ao palco, pegar um microfone e falar para uma centena de pessoas.

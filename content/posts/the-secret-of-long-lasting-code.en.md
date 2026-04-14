@@ -1,6 +1,7 @@
 +++ 
 date = 2023-02-05T03:07:00+01:00
 title = "The secret of long-lasting code"
+categories = ["Coding"]
 +++
 
 I cannot talk about every software developer in the world, but I imagine that most of us had to deal with legacy applications at some point in our careers.

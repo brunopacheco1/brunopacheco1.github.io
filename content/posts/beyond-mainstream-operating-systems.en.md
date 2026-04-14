@@ -1,6 +1,7 @@
 +++ 
 date = 2024-11-09T18:49:00+01:00
 title = "Beyond mainstream operating systems"
+categories = ["Operating Systems"]
 +++
 
 This post begins with a self-reflection on why I am choosing to not use Windows, MacOS, nor Linux based systems. Then, it progresses to alternatives, if you are not interesting on my experience, feel free to skip.

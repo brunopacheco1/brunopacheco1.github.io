@@ -1,6 +1,7 @@
 +++ 
 date = 2019-10-28T22:38:36+02:00
 title = "Initial commit"
+categories = ["Journal"]
 +++
 
 Este é o primeiro post no meu blog pessoal. XD

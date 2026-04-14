@@ -1,6 +1,7 @@
 +++ 
 date = 2023-01-04T00:34:00+01:00
 title = "Covid led me to my first open-source contribution"
+categories = ["Coding"]
 +++
 
 It's been a while since I've shared anything here. Mostly because my interests and priorities have changed. But now I'm back, and I hope to produce more content.

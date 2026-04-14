@@ -1,6 +1,7 @@
 +++
 date = 2019-11-18T22:05:30+01:00
 title = "Quarkus, Kotlin and GraalVM"
+categories = ["Coding"]
 +++
 
 During a chat with [László](https://github.com/nerg4l), I've asked him for some ideas to practice Quarkus and GraalVM, he suggested to code the classic game Snake (AKA Worms by me :P).

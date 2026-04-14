@@ -1,6 +1,7 @@
 +++ 
 date = 2023-01-24T02:11:00+01:00
 title = "Optimizing Decision Making with a Trie Tree-Based Rules Engine: An Experience Report"
+categories = ["Coding"]
 +++
 
 In Pictet Technologies, my team relies a lot on decision models. These models allow our business analysts to input Compliance business rules directly into the systems with minimal developer intervention. When I joined the company, we used to use both [Drools](https://www.kie.org/) and [Camunda](https://camunda.com/). However, we faced severe memory and performance issues, specifically with Camunda, prompting me to explore alternatives.
