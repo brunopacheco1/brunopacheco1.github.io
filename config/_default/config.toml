@@ -1,8 +1,9 @@
-baseURL = "https://brunopacheco1.github.io/"
+baseURL = "https://bruno.pacheco.lu/"
 languageCode = "en"
 enableRobotsTXT = true
 paginate = 10
 summaryLength = 0
+copyright = "© 2019 - 2026, Bruno Pacheco Lopes da Silva. This work is licensed under the Creative Commons Attribution 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/."
 
 [outputs]
   home = ["HTML", "RSS", "JSON"]
