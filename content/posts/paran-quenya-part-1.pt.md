@@ -1,5 +1,5 @@
 +++
-date = 2026-04-12T08:02:28+01:00
+date = 2026-04-14T08:02:28+01:00
 title = "Páran Quenya: Primeiro passo"
 +++
 
@@ -16,6 +16,8 @@ Minha intenção agora é seguir algumas das fontes abaixo, possivelmente um mis
 Falando em projetos, eu poderia traduzir e revisar materiais publicados; algumas coisas estão claramente defasadas, como a tabela de verbos com declinações do Ambar Eldaron. Também poderia preparar um material mais didático. Por hora, fiquem com esta imagem intitulada: *hröanya* / meu corpo.
 
 ![Meu corpo](/images/paran-quenya/my_body_basic.jpeg)
+
+A imagem foi parcialmente gerada por AI. A idéia, porém, foi inspirada por uma ilustração do [Tom Loback](https://www.elvish.org/gwaith/tom_loback.htm), de 1988, que serviu de capa para a primeira publicação do [Vinyar Tengwar](https://www.elvish.org/VT/). Eu deliberadamente reduzi o vocabulário apresentado nessa ilustração, e revisei a ortografia e inflexões baseado no índice publicado no [Eldamo](https://eldamo.org/content/category-indexes/categories-q.html#BP).
 
 Referências gramaticais, para quem gosta desse tipo de detalhe (aka sadomasoquista):
 * [Pronomes possessivos](https://eldamo.org/content/words/word-4077936885.html).

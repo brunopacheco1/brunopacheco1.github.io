@@ -1,5 +1,5 @@
 +++
-date = 2026-04-12T08:02:28+01:00
+date = 2026-04-14T08:02:28+01:00
 categories = ['Quenya']
 title = "Páran Quenya: First Step"
 +++
@@ -17,6 +17,8 @@ My intention now is to follow some of the sources below—possibly a mix of Atan
 Speaking of projects, I could translate and review published materials; some things are clearly outdated, such as the verb table with declensions from Ambar Eldaron. I could also prepare more didactic material. For now, I leave you with this image titled: *hröanya* / my body.
 
 ![My body](/images/paran-quenya/my_body_basic.jpeg)
+
+The image was partially AI-generated. The idea, however, was inspired by a 1988 illustration by [Tom Loback](https://www.elvish.org/gwaith/tom_loback.htm) that served as the cover for the first issue of [Vinyar Tengwar](https://www.elvish.org/VT/). I deliberately reduced the vocabulary presented in that illustration and revised the spelling and inflections based on the index published on [Eldamo](https://eldamo.org/content/category-indexes/categories-q.html#BP).
 
 Grammar references for those who enjoy this kind of detail (aka masochist):
 * [Possessive pronouns](https://eldamo.org/content/words/word-4077936885.html).
