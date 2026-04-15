@@ -17,7 +17,7 @@ Falando em projetos, eu poderia traduzir e revisar materiais publicados; algumas
 
 ![Meu corpo](/images/paran-quenya/my_body_basic.jpeg)
 
-A imagem foi parcialmente gerada por AI. A idéia, porém, foi inspirada por uma ilustração do [Tom Loback](https://www.elvish.org/gwaith/tom_loback.htm), de 1988, que serviu de capa para a primeira publicação do [Vinyar Tengwar](https://www.elvish.org/VT/). Eu deliberadamente reduzi o vocabulário apresentado nessa ilustração, e revisei a ortografia e inflexões baseado no índice publicado no [Eldamo](https://eldamo.org/content/category-indexes/categories-q.html#BP).
+A imagem foi parcialmente gerada por IA. A idéia, porém, foi inspirada por uma ilustração do [Tom Loback](https://www.elvish.org/gwaith/tom_loback.htm), de 1988, que serviu de capa para a primeira publicação do [Vinyar Tengwar](https://www.elvish.org/VT/). Eu deliberadamente reduzi o vocabulário apresentado nessa ilustração, e revisei palavras, ortografia e inflexões baseado no índice publicado no [Eldamo](https://eldamo.org/content/category-indexes/categories-q.html#BP).
 
 Referências gramaticais, para quem gosta desse tipo de detalhe (aka sadomasoquista):
 * [Pronomes possessivos](https://eldamo.org/content/words/word-4077936885.html).
@@ -30,7 +30,7 @@ Isso significa: material produzido por estudiosos e entusiastas a partir do estu
 * [Ardalambion.net](https://ardalambion.net/): De Helge Fauskanger, site dedicado aos idiomas tolkienianos; conta com o curso de Quenya supramencionado.
 * [Fale Elfo você mesmo](https://www.youtube.com/@Cenindo/playlists): Também de Helge Fauskanger, com ele em primeira pessoa ensinando Quenya no YouTube.
 * [Atanquesta](https://www.scribd.com/document/790479040/Atanquesta): De Tamas Ferencz, é um curso de Quenya publicado em 2018, com o intuito de ter um vocabulário mais simples voltado para o cotidiano; nada de rei, torre ou espada.
-* [Eldamo](https://eldamo.org/): De Paul Strack, é um léxico dos idiomas construídos pelo Professor, com ênfase nos élficos.
+* [Eldamo](https://eldamo.org/): De [Paul Strack](https://tolkiengateway.net/wiki/Paul_Strack), é um léxico dos idiomas construídos pelo Professor, com ênfase nos élficos.
 * [Arquivo de Composições em Élfico](https://eldamo.org/elvish-composition-archive/index.html): Arquivo organizado por Paul Strack, com composições próprias e traduções feitas por diversas pessoas para o Quenya e Sindarin.
 * [Cartões para treinar vocabulário](https://community-courses.memrise.com/user/pfstrack2/courses/teaching/): De Paul Strack no Memrise, que implementa repetição espaçada para ajudar na memorização.
 * [Tecendil](https://www.tecendil.com/): De Arno Gourdol, é um conversor/transcritor do alfabeto romano para o Tengwar. Também funciona como dicionário com integração direta ao Eldamo.

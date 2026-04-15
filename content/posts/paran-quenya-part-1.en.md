@@ -18,7 +18,7 @@ Speaking of projects, I could translate and review published materials; some thi
 
 ![My body](/images/paran-quenya/my_body_basic.jpeg)
 
-The image was partially AI-generated. The idea, however, was inspired by a 1988 illustration by [Tom Loback](https://www.elvish.org/gwaith/tom_loback.htm) that served as the cover for the first issue of [Vinyar Tengwar](https://www.elvish.org/VT/). I deliberately reduced the vocabulary presented in that illustration and revised the spelling and inflections based on the index published on [Eldamo](https://eldamo.org/content/category-indexes/categories-q.html#BP).
+The image was partially AI-generated. The idea, however, was inspired by a 1988 illustration by [Tom Loback](https://www.elvish.org/gwaith/tom_loback.htm) that served as the cover for the first issue of [Vinyar Tengwar](https://www.elvish.org/VT/). I deliberately reduced the vocabulary presented in that illustration and revised words, spelling and inflections based on the index published on [Eldamo](https://eldamo.org/content/category-indexes/categories-q.html#BP).
 
 Grammar references for those who enjoy this kind of detail (aka masochist):
 * [Possessive pronouns](https://eldamo.org/content/words/word-4077936885.html).
@@ -31,7 +31,7 @@ This refers to: material produced by scholars and enthusiasts based on the study
 * [Ardalambion.net](https://ardalambion.net/): By Helge Fauskanger, a site dedicated to Tolkienian languages; it features the aforementioned Quenya course.
 * [Speak Elf Yourself](https://www.youtube.com/@Cenindo/playlists): Also by Helge Fauskanger, featuring him in the first person teaching Quenya on YouTube.
 * [Atanquesta](https://www.scribd.com/document/790479040/Atanquesta): By Tamas Ferencz, this is a Quenya course published in 2018 with the intent of providing a simpler vocabulary focused on everyday life; no kings, towers, or swords.
-* [Eldamo](https://eldamo.org/): By Paul Strack, a lexicon of the languages constructed by the Professor, with an emphasis on Elvish.
+* [Eldamo](https://eldamo.org/): By [Paul Strack](https://tolkiengateway.net/wiki/Paul_Strack), a lexicon of the languages constructed by the Professor, with an emphasis on Elvish.
 * [Elvish Composition Archive](https://eldamo.org/elvish-composition-archive/index.html): An archive organized by Paul Strack, featuring original compositions and translations into Quenya and Sindarin by various authors.
 * [Vocabulary training cards](https://community-courses.memrise.com/user/pfstrack2/courses/teaching/): By Paul Strack on Memrise, implementing spaced repetition to help with memorization.
 * [Tecendil](https://www.tecendil.com/): By Arno Gourdol, a converter/transcriber from the Roman alphabet to Tengwar. It also functions as a dictionary with direct integration into Eldamo.
