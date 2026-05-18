@@ -15,8 +15,8 @@ title = "Home"
 [params.author]
   name = "Bruno Pacheco"
   image = "images/avatar.jpg"
-  headline = "Software engineer e evangelista agile"
-  bio = "Um engenheiro de software que adora aprender novas linguas, escrever and programar."
+  headline = "Solution architect e evangelista ágil"
+  bio = "Um arquiteto de soluções que adora aprender novas linguas, escrever and programar."
   links = [
     { email = "mailto:pacheco.lu.habitat962@passmail.net" },
     { dev = "https://dev.to/brunopacheco1" },
