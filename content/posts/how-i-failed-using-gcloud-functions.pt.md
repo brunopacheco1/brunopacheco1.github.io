@@ -4,7 +4,7 @@ title = "Como eu falhei ao usar Google Cloud Functions"
 categories = ["Coding"]
 +++
 
-Este post é uma continuação do meu artigo anterior sobre [Quarkus, Kotlin e GraalVM](/posts/pt/quarkus-kotlin-and-graalvm).
+Este post é uma continuação do meu artigo anterior sobre [Quarkus, Kotlin e GraalVM](/pt/posts/quarkus-kotlin-and-graalvm/).
 
 Fiquei orgulhoso por ter terminado o jogo da Snake, que estava funcionando no modo multiplayer. No entanto, eu queria melhorar a experiência do jogo abordando dois pontos: a interface e a escalabilidade. Decidi focar na escalabilidade, mas infelizmente falhei.
 
