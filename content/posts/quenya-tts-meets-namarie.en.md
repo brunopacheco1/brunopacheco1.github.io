@@ -50,7 +50,7 @@ Tolkien's own recording scores 33% against our rules, but listening to it, you c
 
 **The rules agree with Tolkien.** Where the recogniser hears Tolkien clearly, he says what the rules predict. The one interesting difference is *ly*, as in *ilyë* and *hiruvalyë*: the rules use a single sound, but in Tolkien's voice the recogniser hears two phonemes, *l* followed by *y*. The sources leave both readings open (in Tengwar, *ly* is one letter with two dots below), so I kept the single sound.
 
-**The remaining errors are probably the model's.** I don't have access to Annie's trained model, nor enough Quenya recordings to train it myself. The main remaining issues are:
+**The remaining errors are probably the model's.** I don't have access to Annie's trained model, and the few Quenya recordings available aren't enough to train a new one (more on that below). The main remaining issues are:
 
 - the model can't make the soft *l*, so *ilyë* comes out as "ihe";
 - a final *r* is weak and gets heard as *l* (*Valimar*, *tellumar*), where it should be trilled;
@@ -58,9 +58,21 @@ Tolkien's own recording scores 33% against our rules, but listening to it, you c
 
 ![Line 16, Namárië! Nai hiruvalyë Valimar: the soft l of hiruvalyë is where the model struggles most](/images/quenya-tts-namarie/line16.png)
 
+## Not enough voice
+
+To see how far existing recordings could take the model, I fine-tuned Toucan on Kaggle with about eight minutes of Quenya readings, for private testing only. After 5,000 training steps, the model sounded better on the sentences it had heard and worse on the ones it hadn't: a textbook case of overfitting. Better rules can't fix that. What the model needs is hours of clean Quenya, ideally from a single voice.
+
 ## What comes next
 
-The next step is to record volunteers reading Quenya sentences to train the model: mostly everyday dialogue, plus some poems. If you would like to lend your voice, see the [volunteer voices issue](https://github.com/brunopacheco1/ma-quetelye-quenya/issues/38). The recordings will be published under an open licence, so the trained model can be shared freely.
+**My own voice first.** I wrote a recording script of 2,500 lines, about 90 minutes of speech split into 25 sessions: first the lines of lesson 1 of [*Ma Quetilyë Quenya?*](https://ma-quetilye-quenya.tolkien.lu/), then attested phrases, then sentences built from words attested in Eldamo. I record it at home with a small tool that can also play the synthetic version of each line. The same recogniser I used on Tolkien now checks my own takes, and it is humbling: it catches me on *nw*, *ny*, *au* and an initial *qu* more often than I would like.
+
+**Then volunteers.** A small website is almost ready, where volunteers can read sessions of the same script in their browser. A reviewer listens to each session and accepts it, or asks for single lines to be read again. A voice is used for training only once it has enough accepted audio.
+
+I changed my mind about one thing since I first wrote this post: the recordings will **not** be published under an open licence. They are used only to train the model. Every volunteer can download their own recordings and do whatever they like with them, and can export or erase their data at any time, as the GDPR requires. The website, the storage and the training all run on servers in the European Union, in Luxembourg and Portugal.
+
+**A voice that is nobody's.** A model trained on someone's voice will sound like them. So the model I publish will speak with a blended voice that belongs to no single volunteer. Every audio file it produces will carry an inaudible watermark marking it as synthetic, as the EU AI Act asks, and its licence will forbid using it to imitate a real person.
+
+If you would like to lend your voice, see the [volunteer voices issue](https://github.com/brunopacheco1/ma-quetilye-quenya/issues/38). I will write a follow-up post once the model has learned to speak with my voice.
 
 Please let me know if you have any feedback.
 
