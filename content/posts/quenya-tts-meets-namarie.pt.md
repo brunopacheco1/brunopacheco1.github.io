@@ -50,7 +50,7 @@ A própria gravação de Tolkien tem 33% em relação às nossas regras, mas, ao
 
 **As regras concordam com Tolkien.** Onde o reconhecedor ouve Tolkien com clareza, ele diz o que as regras preveem. A única diferença interessante é o *ly*, como em *ilyë* e *hiruvalyë*: as regras usam um único som, mas na voz de Tolkien o reconhecedor ouve dois fonemas, *l* seguido de *y*. As fontes deixam as duas leituras em aberto (em Tengwar, *ly* é uma única letra com dois pontos embaixo), então mantive o som único.
 
-**Os erros restantes provavelmente são do modelo.** Não tenho acesso ao modelo treinado da Annie, nem gravações suficientes de Quenya para treiná-lo eu mesmo. Os principais problemas que restam são:
+**Os erros restantes provavelmente são do modelo.** Não tenho acesso ao modelo treinado da Annie, e as poucas gravações de Quenya disponíveis não bastam para treinar um novo (falo disso mais abaixo). Os principais problemas que restam são:
 
 - o modelo não consegue produzir o *l* palatal, então *ilyë* sai como "ihe";
 - o *r* final é fraco e é ouvido como *l* (*Valimar*, *tellumar*), quando deveria ser vibrante;
@@ -58,9 +58,21 @@ A própria gravação de Tolkien tem 33% em relação às nossas regras, mas, ao
 
 ![Verso 16, Namárië! Nai hiruvalyë Valimar: o l palatal de hiruvalyë é onde o modelo tem mais dificuldade](/images/quenya-tts-namarie/line16.png)
 
+## Falta voz
+
+Para ver até onde as gravações existentes levariam o modelo, fiz um ajuste fino (fine-tuning) do Toucan no Kaggle com cerca de oito minutos de leituras em Quenya, apenas para testes privados. Depois de 5.000 passos de treino, o modelo soava melhor nas frases que tinha ouvido e pior nas que não tinha: um caso clássico de sobreajuste (overfitting). Regras melhores não resolvem isso. O que o modelo precisa é de horas de Quenya limpo, de preferência de uma única voz.
+
 ## Próximos passos
 
-O próximo passo é gravar voluntários lendo frases em Quenya para treinar o modelo: principalmente diálogos do dia a dia, e também alguns poemas. Se você quiser emprestar a sua voz, veja a [issue de vozes voluntárias](https://github.com/brunopacheco1/ma-quetelye-quenya/issues/38). As gravações serão publicadas sob uma licença aberta, para que o modelo treinado possa ser compartilhado livremente.
+**Primeiro, a minha voz.** Escrevi um roteiro de gravação com 2.500 frases, cerca de 90 minutos de fala divididos em 25 sessões: primeiro as frases da lição 1 do [*Ma Quetilyë Quenya?*](https://ma-quetilye-quenya.tolkien.lu/pt/), depois frases atestadas e, por fim, frases construídas com palavras atestadas no Eldamo. Gravo em casa com uma pequena ferramenta que também toca a versão sintética de cada frase. O mesmo reconhecedor que usei com Tolkien agora confere as minhas gravações, e é uma lição de humildade: ele me pega no *nw*, no *ny*, no *au* e no *qu* inicial mais vezes do que eu gostaria.
+
+**Depois, os voluntários.** Um pequeno site está quase pronto, onde voluntários poderão ler sessões do mesmo roteiro direto no navegador. Um revisor ouve cada sessão e a aceita ou pede que frases específicas sejam lidas de novo. Uma voz só entra no treino quando tiver áudio aceito suficiente.
+
+Mudei de ideia sobre uma coisa desde que escrevi este post: as gravações **não** serão publicadas sob uma licença aberta. Elas servem apenas para treinar o modelo. Cada voluntário pode baixar as próprias gravações e fazer o que quiser com elas, e pode exportar ou apagar os seus dados a qualquer momento, como exige o GDPR (o equivalente europeu da LGPD). O site, o armazenamento e o treino rodam todos em servidores na União Europeia, em Luxemburgo e em Portugal.
+
+**Uma voz que não é de ninguém.** Um modelo treinado com a voz de alguém vai soar como essa pessoa. Por isso, o modelo que eu publicar vai falar com uma voz misturada, que não pertence a nenhum voluntário. Cada arquivo de áudio que ele produzir vai levar uma marca d'água inaudível indicando que é sintético, como pede o AI Act da União Europeia, e a sua licença vai proibir o uso para imitar uma pessoa real.
+
+Se você quiser emprestar a sua voz, veja a [issue de vozes voluntárias](https://github.com/brunopacheco1/ma-quetilye-quenya/issues/38). Vou escrever um novo post quando o modelo tiver aprendido a falar com a minha voz.
 
 Se tiver qualquer comentário, me avise.
 
