@@ -1,0 +1,38 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/suites/jws-2020/v1"
+  ],
+  "id": "did:web:bruno.pacheco.lu",
+  "verificationMethod": [
+    {
+      "id": "did:web:bruno.pacheco.lu#key-1",
+      "type": "JsonWebKey2020",
+      "controller": "did:web:bruno.pacheco.lu",
+      "publicKeyJwk": {
+        "kty": "EC",
+        "crv": "P-256",
+        "x": "m0-My3C9IbY8p4JFR_uYhPv81WPVtT7pyW6j50Zq7K0",
+        "y": "8kOnnAF_zm7ePLXOqKt8rsJQzdetY_dGT3CnU7hF2J4"
+      }
+    },
+    {
+      "id": "did:web:bruno.pacheco.lu#key-2",
+      "type": "JsonWebKey2020",
+      "controller": "did:web:bruno.pacheco.lu",
+      "publicKeyJwk": {
+        "kty": "OKP",
+        "crv": "Ed25519",
+        "x": "I8q_W5tVy8gx2eXuR7sUZJg2bjApZt1TebXZLOZlOPk"
+      }
+    }
+  ],
+  "authentication": [
+    "did:web:bruno.pacheco.lu#key-1",
+    "did:web:bruno.pacheco.lu#key-2"
+  ],
+  "assertionMethod": [
+    "did:web:bruno.pacheco.lu#key-1",
+    "did:web:bruno.pacheco.lu#key-2"
+  ]
+}
