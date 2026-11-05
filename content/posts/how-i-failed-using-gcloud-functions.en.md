@@ -1,6 +1,7 @@
 +++ 
 date = 2020-02-12T20:37:41+01:00
 title = "How I failed using Google Cloud Functions"
+description = "I rebuilt my multiplayer Snake game with Google Cloud Functions, Firebase and Pub/Sub. Less code, but too slow to play. What went wrong and what I should have done."
 categories = ["Coding"]
 +++
 

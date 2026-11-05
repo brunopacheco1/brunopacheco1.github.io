@@ -1,6 +1,7 @@
 +++ 
 date = 2019-10-28T22:38:36+02:00
 title = "Initial commit"
+description = "The first post of my personal blog: why I started it and what I plan to share about libraries, languages, tools and operating systems."
 categories = ["Journal"]
 +++
 

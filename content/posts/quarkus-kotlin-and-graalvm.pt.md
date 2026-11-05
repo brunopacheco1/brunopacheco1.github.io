@@ -1,24 +1,25 @@
 +++
 date = 2019-11-18T22:05:30+01:00
 title = "Quarkus, Kotlin e GraalVM"
+description = "Criando um jogo Snake multiplayer para testar Quarkus, Kotlin e imagens nativas do GraalVM, e o que isso me mostrou sobre rodar Java na nuvem."
 categories = ["Coding"]
 +++
 
-During a chat with [László](https://github.com/nerg4l), I've asked him for some ideas to practice Quarkus and GraalVM, he suggested to code the classic game Snake (AKA Worms by me :P).
+Durante uma conversa com o [László](https://github.com/nerg4l), pedi a ele algumas ideias para praticar Quarkus e GraalVM, e ele sugeriu programar o clássico jogo Snake (ou Worms, como eu chamo :P).
 
-### Motivations
+### Motivações
 
-Why [Quarkus](https://quarkus.io)? I've read an article saying that Quarkus is a great and promising solution for Java in the Cloud, as it drastically reduces the application's footprint and has an insanely fast startup when running on native code.
+Por que [Quarkus](https://quarkus.io)? Li um artigo dizendo que o Quarkus é uma solução ótima e promissora para Java na nuvem, já que reduz drasticamente o footprint da aplicação e tem uma inicialização absurdamente rápida quando roda em código nativo.
 
-[GraalVM](https://www.graalvm.org/) is a general-purpose VM for running applications written in a bunch of different languages, allowing a polyglot code. At first glance, I felt it was an amazing thing to try, and so I did. In the end, this first trial wasn't fruitful, due to some strange bug on a node app I was coding at that time, so I just gave up for that moment. 
+O [GraalVM](https://www.graalvm.org/) é uma VM de uso geral para rodar aplicações escritas em várias linguagens diferentes, permitindo código poliglota. À primeira vista, achei que era algo incrível para testar, e foi o que fiz. No fim, essa primeira tentativa não deu frutos, por causa de um bug estranho em uma aplicação node que eu estava programando na época, então simplesmente desisti naquele momento.
 
-[Kotlin](https://kotlinlang.org/) has no reasonable arguments to be here except it is a brand-new Java dialect which I was already learning, but I have never used it on something substantial, so why not?
+O [Kotlin](https://kotlinlang.org/) não tem nenhum argumento razoável para estar aqui, exceto que é um dialeto Java novinho que eu já estava aprendendo, mas que nunca tinha usado em algo substancial. Então, por que não?
 
-### Starting the adventure
+### Começando a aventura
 
-I've started the project just reading the guides on Quarkus.io, which are quite hands-on, but superficial. Quarkus is simple to use, as any recent framework for web development. So simple that in five minutes I had a rest service running locally... of course, an HTTP call returning a "Hello World" string doesn't deserve to be called a service, does it?
+Comecei o projeto apenas lendo os guias do Quarkus.io, que são bem práticos, mas superficiais. O Quarkus é simples de usar, como qualquer framework recente de desenvolvimento web. Tão simples que em cinco minutos eu tinha um serviço REST rodando localmente... claro, uma chamada HTTP que retorna a string "Hello World" não merece ser chamada de serviço, não é?
 
-So, to start your project from scratch, they have implemented a bootstrap command. Please refer to the followin command:
+Para começar seu projeto do zero, eles implementaram um comando de bootstrap. Veja o comando a seguir:
 
 ```
 mvn io.quarkus:quarkus-maven-plugin:1.0.0.CR1:create \
@@ -28,19 +29,19 @@ mvn io.quarkus:quarkus-maven-plugin:1.0.0.CR1:create \
     -Dpath="/hello"
 ```
 
-And an easy way to add new dependencies:
+E uma forma fácil de adicionar novas dependências:
 
 ```
 mvn quarkus:add-extension -Dextensions="vertx"
 ```
 
-Moving on, my first steps were: defining the domain, JPA, H2, a couple of CRUD endpoints and some DTOs. After having this square-shaped code, I decided to migrate it to Kotlin, and bugs started popping up as expected.
+Seguindo em frente, meus primeiros passos foram: definir o domínio, JPA, H2, alguns endpoints CRUD e alguns DTOs. Depois de ter esse código quadradinho, decidi migrá-lo para Kotlin, e os bugs começaram a aparecer, como esperado.
 
-The first problem which I had to face was JPA. It requires open classes and by default it isn't true for Kotlin. To fix this, there's a flag to enable JPA support during compilation. I don't like this kind of solution, but this is somewhat my fault as I wanted to use a mature Java library instead of using something more Kotlin-like.
+O primeiro problema que tive que enfrentar foi o JPA. Ele exige classes abertas, e isso não é o padrão no Kotlin. Para resolver, existe uma flag que habilita o suporte a JPA durante a compilação. Não gosto desse tipo de solução, mas a culpa é um pouco minha, já que eu quis usar uma biblioteca Java madura em vez de algo mais no estilo Kotlin.
 
-The second problem was the JSON payload serialization. I had some issues with JSON-B (the default option), and then I decided to try Jackson. Again, just for the sake of simplicity, as I was already testing tons of new things.
+O segundo problema foi a serialização do payload JSON. Tive alguns problemas com o JSON-B (a opção padrão) e então decidi testar o Jackson. De novo, só por simplicidade, já que eu estava testando um monte de coisas novas.
 
-It worked nicely and the DTOs were cleaner than before. However, another plugin had to be added to the Kotlin compiler (the no-arg plugin option) and a custom annotation to help the compiler identifying the DTOs.
+Funcionou bem e os DTOs ficaram mais limpos do que antes. Porém, foi preciso adicionar outro plugin ao compilador Kotlin (a opção do plugin no-arg) e uma anotação customizada para ajudar o compilador a identificar os DTOs.
 
 ```
 @Dto
@@ -53,9 +54,9 @@ data class MatchMapPlayer(
 )
 ```
 
-The third problem was similar to the JPA issue. All managed beans have to be open. Can you guess the solution? Yes another Kotlin compiler flag.
+O terceiro problema foi parecido com o do JPA. Todos os managed beans precisam ser abertos. Consegue adivinhar a solução? Sim, mais uma flag do compilador Kotlin.
 
-So, in the end, my Koltin compiler configuration looked like the following:
+No fim, a configuração do meu compilador Kotlin ficou assim:
 
 ```
 <configuration>
@@ -77,53 +78,53 @@ So, in the end, my Koltin compiler configuration looked like the following:
 </configuration>
 ```
 
-I've also created an abstract Repository class to have a common behavior for all entity repos (copying Spring), but I had a problem with the dependency injection in the superclass.
+Também criei uma classe abstrata Repository para ter um comportamento comum em todos os repositórios de entidades (copiando o Spring), mas tive um problema com a injeção de dependência na superclasse.
 
-I tried using constructor dependency injection, passing it from the child to the superclass using super, but it hasn't worked properly. The work around was injecting the `EntityManager` directly in the field, like this:
+Tentei usar injeção de dependência pelo construtor, passando da classe filha para a superclasse com super, mas não funcionou direito. A solução alternativa foi injetar o `EntityManager` diretamente no campo, assim:
 
 ```
     @PersistenceContext
     protected lateinit var em: EntityManager
 ```
 
-Then, I had to change all `@OnToMany` from `List`/`Set` to `MutableList`/`MutableSet`.
+Depois, tive que trocar todos os `@OnToMany` de `List`/`Set` para `MutableList`/`MutableSet`.
 
-And finally, I don't remember why, but now all fields in the domain and DTO classes were `var`, instead of `val`. I have to check why again.
+E, por fim, não lembro por quê, mas agora todos os campos das classes de domínio e de DTO eram `var` em vez de `val`. Preciso verificar isso de novo.
 
-I've also implemented some business code, which is not important to discuss here (but if you are interested, go to
-[this link](https://github.com/brunopacheco1/worms/tree/master/src/main/kotlin/com/dev/bruno/worms/evaluation)).
+Também implementei um pouco de código de negócio, que não é importante discutir aqui (mas, se tiver interesse, veja
+[este link](https://github.com/brunopacheco1/worms/tree/master/src/main/kotlin/com/dev/bruno/worms/evaluation)).
 
-### And GraalVM enters the scene...
+### E o GraalVM entra em cena...
 
-After trespassing the first barrier, I was ready for the next boss (the final one?): compiling the project to native code.
+Depois de passar pela primeira barreira, eu estava pronto para o próximo chefão (o último?): compilar o projeto para código nativo.
 
-According to Quarkus.io, this shouldn't be complicated as they aim to simplify native code compilation using their on maven plugin. Even their guides being simplistic, they are not lying. But they could have mentioned the Reflection limitation in GraalVM, which will be explained in the following lines.
+Segundo o Quarkus.io, isso não deveria ser complicado, já que eles buscam simplificar a compilação para código nativo com o próprio plugin Maven. Mesmo com guias simplistas, eles não estão mentindo. Mas poderiam ter mencionado a limitação de Reflection no GraalVM, que vou explicar nas próximas linhas.
 
-So, to build the app, you have to run a similar mvn command:
+Para fazer o build da aplicação, você precisa rodar um comando mvn parecido com este:
 
 ```
 mvn clean package -Pnative -Dnative-image.docker-build=true
 ```
 
-By the way, I was building a containerized native code, that's why there's this docker-build arg. They also provide a dockerfile sample.
+Aliás, eu estava gerando código nativo em contêiner, por isso esse argumento docker-build. Eles também fornecem um exemplo de Dockerfile.
 
-I thought at this stage that would be enough, but no. After running the build and running the app on Docker, I faced exceptions on Jackson. So, reflection is not supported by default on native code and it took me a while to understand why, and a bit more to find a way to fix it.
+Achei que nessa etapa isso bastaria, mas não. Depois de rodar o build e a aplicação no Docker, dei de cara com exceções no Jackson. Reflection não é suportado por padrão em código nativo, e levei um tempo para entender por quê, e mais um pouco para encontrar uma forma de resolver.
 
-On a side note, the build consumes a lot of memory and CPU, almost killing my old Lenovo. :(
+Aliás, o build consome muita memória e CPU, quase matando meu velho Lenovo. :(
 
-So, GraalVM does allow you to use reflection, but for that, you need to add a config file, located at `META-INF/native-image/reflect-config.json` (it can be in a different folder with a different name, but this is the default path).
+O GraalVM permite usar reflection, mas para isso você precisa adicionar um arquivo de configuração, localizado em `META-INF/native-image/reflect-config.json` (ele pode ficar em outra pasta e com outro nome, mas esse é o caminho padrão).
 
-First I decided not to manually write this file, and after googling I've found this [blog](https://link.medium.com/n2us7AWxF1) presenting an agent to do this job. The idea is to observe the JVM during runtime and generate the config.
+Primeiro, decidi não escrever esse arquivo à mão e, depois de pesquisar no Google, encontrei este [blog](https://link.medium.com/n2us7AWxF1) apresentando um agente que faz esse trabalho. A ideia é observar a JVM em tempo de execução e gerar a configuração.
 
-To do this, you simply have to run the app with the following command:
+Para isso, basta rodar a aplicação com o seguinte comando:
 
 ```
 $JAVA_HOME/bin/java -agentlib:native-image-agent=config-output-dir=META-INF/native-image your.jar
 ```
 
-After running the app with this agent, the generated file was hugely polluted and it didn't fix the problem anyway, as the agent didn't add all needed classes. So, I ended up typing the file manually. And surprisingly, I only had to add the DTO classes.
+Depois de rodar a aplicação com esse agente, o arquivo gerado ficou extremamente poluído e nem resolveu o problema, já que o agente não adicionou todas as classes necessárias. Então acabei escrevendo o arquivo à mão. E, para minha surpresa, só precisei adicionar as classes de DTO.
 
-The file should look something like this:
+O arquivo deve ficar mais ou menos assim:
 
 ```
 [
@@ -146,18 +147,18 @@ The file should look something like this:
 ]
 ```
 
-### Conclusions
+### Conclusões
 
-I do recognize the benefits of using Kotlin such as nullability, immutability, less verbose code, tons of new coder-friendly functions, however they are not that important when you have clean code and efficient testing.
+Reconheço os benefícios de usar Kotlin, como nulabilidade, imutabilidade, código menos verboso e um monte de funções novas e amigáveis para quem programa. Porém, eles não são tão importantes quando você tem código limpo e testes eficientes.
 
-Also, I don't like polluted POM files, and it annoyed me having to add build plugins, compiler flags and configurations. I felt guilty about using JPA and Jackson though. Perhaps, if I had used something more Kotlin oriented, I wouldn't have had these issues. Let's see what happens in the next project.
+Além disso, não gosto de arquivos POM poluídos, e me incomodou ter que adicionar plugins de build, flags de compilador e configurações. Mas me senti culpado por ter usado JPA e Jackson. Talvez, se eu tivesse usado algo mais orientado a Kotlin, não teria tido esses problemas. Vamos ver o que acontece no próximo projeto.
 
-Quarkus has an insanely fast startup indeed, and the memory footprint is great. I have used a micro instance on Google Cloud to test the game, and it handled properly the load, without crashing anything. Quarkus is a bit immature yet, as it required some refactoring when I decided to move to newer versions. Nonetheless, it is promising, as it has huge support for different technologies and libraries. I'll use it again.
+O Quarkus tem mesmo uma inicialização absurdamente rápida, e o consumo de memória é ótimo. Usei uma instância micro no Google Cloud para testar o jogo, e ela aguentou bem a carga, sem derrubar nada. O Quarkus ainda é um pouco imaturo, já que exigiu algumas refatorações quando decidi migrar para versões mais novas. Mesmo assim, é promissor, pois tem um suporte enorme a diferentes tecnologias e bibliotecas. Vou usá-lo de novo.
 
-I have loved GraalVM at first sight, as the wish of a polyglot code is in my mind for a while, and now it's becoming reality. In the end, I didn't use this feature, however, the native code generation fascinated me as well. I didn't like the way it consumes resources though. Compiling any other language code to native is not consuming 10% of what GraalVM has consumed from my machine (not judging...). I would wait for improvements on this area before using it on commercial solutions.
+Gostei do GraalVM à primeira vista, já que o desejo de ter código poliglota está na minha cabeça há um tempo, e agora isso está virando realidade. No fim, não usei esse recurso, mas a geração de código nativo também me fascinou. Só não gostei da forma como ele consome recursos. Compilar código de qualquer outra linguagem para nativo não consome nem 10% do que o GraalVM consumiu da minha máquina (sem julgamentos...). Eu esperaria melhorias nessa área antes de usá-lo em soluções comerciais.
 
-To sum up: I have enjoyed playing with all these new technologies all together. Due to time and availability constraints, I couldn't investigate more. Perhaps improving and refactoring the code. The final solution is not bad and it has proven to me that Java definitely can be used in the cloud, it's just a matter of investment in new solutions, like Quarkus and GraalVM.
+Resumindo: gostei de brincar com todas essas tecnologias novas juntas. Por falta de tempo e disponibilidade, não consegui investigar mais. Talvez melhorar e refatorar o código. A solução final não é ruim e me provou que Java definitivamente pode ser usado na nuvem, é só uma questão de investir em soluções novas, como Quarkus e GraalVM.
 
-Please, refer to the project [repository](https://github.com/brunopacheco1/worms) to have a better picture of what I have coded. And feel free to comment out there.
+Veja o [repositório](https://github.com/brunopacheco1/worms) do projeto para ter uma ideia melhor do que programei. E fique à vontade para comentar por lá.
 
 **See you | Bis geschwënn | Até mais | À bientôt**

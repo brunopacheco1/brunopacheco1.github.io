@@ -1,6 +1,8 @@
 +++
 date = 2026-04-14T08:02:28+01:00
+categories = ['Quenya']
 title = "Páran Quenya: Primeiro passo"
+description = "O primeiro passo na minha volta ao Quenya, a língua élfica de Tolkien: por que estou reaprendendo e as fontes primárias, secundárias e de Neo-Quenya que uso."
 +++
 
 **Importante**: Gostaria de deixar muito claro que toda e qualquer palavra, frase ou texto aqui descritos são de uso próprio e sem qualquer outra intenção além de lazer, ao bel-prazer do autor deste artigo. Não me responsabilizo por tradução e transcrição de texto para tatuagem ou outros fins de terceiros.

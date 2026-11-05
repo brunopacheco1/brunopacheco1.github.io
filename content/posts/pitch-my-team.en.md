@@ -1,6 +1,7 @@
 +++ 
 date = 2019-11-23T08:02:28+01:00
 title = "event: Pitch my team"
+description = "How my team at Pictet Technologies won best presentation at the 2019 Pitch my team! event, with a five-minute video made in Prezi Video."
 categories = ["Journal"]
 +++
 

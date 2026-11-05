@@ -1,6 +1,7 @@
 +++ 
 date = 2023-07-04T21:49:00+01:00
 title = "Minha jornada rumo ao Open Data"
+description = "Como um projeto pessoal com o dicionário luxemburguês (LOD) me levou ao mundo do open data e a um novo emprego no Luxembourg National Data Service (LNDS)."
 categories = ["Journal"]
 +++
 

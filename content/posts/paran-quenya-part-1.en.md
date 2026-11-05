@@ -2,6 +2,7 @@
 date = 2026-04-14T08:02:28+01:00
 categories = ['Quenya']
 title = "Páran Quenya: First Step"
+description = "The first step in my return to Quenya, Tolkien's Elvish language: why I am learning it again and the primary, secondary and Neo-Quenya sources I rely on."
 +++
 
 **Important**: I would like to make it very clear that any and all words, phrases, or texts described here are for personal use and carry no intention other than leisure, at the author's own whim. I take no responsibility for the translation or transcription of text for tattoos or any other third-party purposes.

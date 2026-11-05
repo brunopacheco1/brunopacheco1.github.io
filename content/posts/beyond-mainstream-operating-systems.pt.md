@@ -1,6 +1,7 @@
 +++ 
 date = 2024-11-09T18:49:00+01:00
 title = "Além dos sistemas operacionais tradicionais"
+description = "Por que estou deixando de lado Windows, macOS e Linux, e os sistemas operacionais alternativos que quero explorar: FreeBSD, Haiku, KolibriOS, Redox e OpenIndiana."
 categories = ["Operating Systems"]
 +++
 

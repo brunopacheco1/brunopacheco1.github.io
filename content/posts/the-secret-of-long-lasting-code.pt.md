@@ -1,6 +1,7 @@
 +++ 
 date = 2023-02-05T03:07:00+01:00
 title = "O segredo de um código duradouro"
+description = "O que faz um software virar legado, e por que refatorar e atualizar continuamente é o segredo de um código duradouro, do ponto de vista do negócio e do desenvolvedor."
 categories = ["Coding"]
 +++
 

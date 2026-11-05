@@ -1,6 +1,7 @@
 +++ 
 date = 2019-10-28T22:38:36+02:00
 title = "Initial commit"
+description = "O primeiro post do meu blog pessoal: por que comecei e o que pretendo compartilhar sobre bibliotecas, linguagens, ferramentas e sistemas operacionais."
 categories = ["Journal"]
 +++
 

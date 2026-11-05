@@ -1,6 +1,7 @@
 +++ 
 date = 2024-10-28T18:49:00+01:00
 title = "Instalando o FreeBSD em um HP 250 G9"
+description = "Como instalei o FreeBSD 14.1 em um notebook HP 250 G9 e configurei o que os guias costumam pular: vídeo, áudio, WiFi, impressora e streaming no Chromium."
 categories = ["Operating Systems"]
 +++
 

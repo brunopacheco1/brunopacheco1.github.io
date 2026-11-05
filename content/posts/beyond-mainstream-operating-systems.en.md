@@ -1,6 +1,7 @@
 +++ 
 date = 2024-11-09T18:49:00+01:00
 title = "Beyond mainstream operating systems"
+description = "Why I am stepping away from Windows, macOS and Linux, and the alternative operating systems I want to explore: FreeBSD, Haiku, KolibriOS, Redox and OpenIndiana."
 categories = ["Operating Systems"]
 +++
 

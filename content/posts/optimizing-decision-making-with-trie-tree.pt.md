@@ -1,6 +1,7 @@
 +++ 
 date = 2023-01-24T02:11:00+01:00
 title = "Otimizando a tomada de decisão com um motor de regras baseado em Trie Tree: um relato de experiência"
+description = "Um relato de experiência: trocando motores de regras DMN (Kogito, Camunda) por uma Trie Tree simples, e o benchmark com menos memória e o dobro de throughput."
 categories = ["Coding"]
 +++
 

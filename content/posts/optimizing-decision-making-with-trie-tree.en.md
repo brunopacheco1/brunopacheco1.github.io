@@ -1,6 +1,7 @@
 +++ 
 date = 2023-01-24T02:11:00+01:00
 title = "Optimizing Decision Making with a Trie Tree-Based Rules Engine: An Experience Report"
+description = "An experience report: replacing DMN rules engines (Kogito, Camunda) with a simple Trie Tree, and the benchmark showing lower memory use and twice the throughput."
 categories = ["Coding"]
 +++
 

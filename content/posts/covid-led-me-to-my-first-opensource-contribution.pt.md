@@ -1,6 +1,7 @@
 +++ 
 date = 2023-01-04T00:34:00+01:00
 title = "A Covid me levou à minha primeira contribuição open-source"
+description = "Como aprender COBOL durante a pandemia de Covid me levou a contribuir com um debugger open-source para o GnuCOBOL, e o que aprendi no caminho."
 categories = ["Coding"]
 +++
 

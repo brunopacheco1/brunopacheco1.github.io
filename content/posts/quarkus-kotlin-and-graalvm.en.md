@@ -1,6 +1,7 @@
 +++
 date = 2019-11-18T22:05:30+01:00
 title = "Quarkus, Kotlin and GraalVM"
+description = "Building a multiplayer Snake game to try Quarkus, Kotlin and GraalVM native images, and what it showed me about running Java in the cloud."
 categories = ["Coding"]
 +++
 

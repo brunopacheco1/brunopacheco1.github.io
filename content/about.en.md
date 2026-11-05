@@ -1,6 +1,7 @@
 +++
 menus = 'main'
 title = 'About'
+description = "About Bruno Pacheco, a solution architect who loves learning new languages, writing and coding."
 date = 2024-10-24T19:25:02+02:00
 +++
 

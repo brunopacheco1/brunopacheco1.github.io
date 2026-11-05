@@ -1,6 +1,7 @@
 +++ 
 date = 2024-10-06T21:49:00+01:00
 title = "Say hello to FreeBSD"
+description = "My long history of trying operating systems, from Kurumin Linux onwards, and why I am now giving FreeBSD a go."
 categories = ["Operating Systems"]
 +++
 

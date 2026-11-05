@@ -2,6 +2,7 @@
 date = 2026-10-12T20:00:00+01:00
 categories = ['Quenya']
 title = "Ensinando uma máquina a dizer Namárië"
+description = "Como melhorei o QuenyaTTS, um modelo de síntese de voz para o élfico de Tolkien, com regras de pronúncia melhores, e como a voz se compara à de Tolkien lendo Namárië."
 +++
 
 No meu primeiríssimo [post sobre Quenya](/pt/posts/paran-quenya-part-1/) (que orgulho!), listei o [QuenyaTTS](https://annie-zhou1997.github.io/QuenyaTTS.github.io/) entre as ferramentas que valem a pena conhecer: um sistema de síntese de voz (text-to-speech) para o Quenya, criado por [Annie Zhou](https://github.com/Annie-Zhou1997/) para a sua dissertação de mestrado de 2024 na Universidade de Groningen.

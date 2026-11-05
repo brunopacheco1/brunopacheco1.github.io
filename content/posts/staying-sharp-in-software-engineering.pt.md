@@ -1,6 +1,7 @@
 +++ 
 date = 2023-01-07T22:00:00+01:00
 title = "Mantendo-se afiado na engenharia de software"
+description = "Como continuo aprendendo como engenheiro de software: desafios de programação online, um parceiro de código, projetos pessoais e uma lista de recursos úteis."
 categories = ["Coding"]
 +++
 

@@ -1,6 +1,7 @@
 +++ 
 date = 2023-02-05T03:07:00+01:00
 title = "The secret of long-lasting code"
+description = "What makes software become legacy, and why continuous refactoring and upgrading is the key to code that lasts, from both the business and developer views."
 categories = ["Coding"]
 +++
 

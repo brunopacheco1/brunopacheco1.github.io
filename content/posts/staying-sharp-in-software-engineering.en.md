@@ -1,6 +1,7 @@
 +++ 
 date = 2023-01-07T22:00:00+01:00
 title = "Staying Sharp in Software Engineering"
+description = "How I keep learning as a software engineer: online coding challenges, a coding partner, personal projects, and a list of useful learning resources."
 categories = ["Coding"]
 +++
 

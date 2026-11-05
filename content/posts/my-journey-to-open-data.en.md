@@ -1,6 +1,7 @@
 +++ 
 date = 2023-07-04T21:49:00+01:00
 title = "My journey to Open Data"
+description = "How a side project on the Luxembourgish dictionary (LOD) led me into the open data world and to a new job at the Luxembourg National Data Service (LNDS)."
 categories = ["Journal"]
 +++
 

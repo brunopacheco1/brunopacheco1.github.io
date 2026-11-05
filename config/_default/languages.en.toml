@@ -10,7 +10,7 @@ title = "Home"
   dateFormat = "2 January 2006"
 
   # mainSections = ["section1", "section2"]
-  # description = "My awesome website"
+  description = "Personal blog of Bruno Pacheco, solution architect. Posts on software engineering, operating systems like FreeBSD, open data and Tolkien's Quenya."
 
 [params.author]
   name = "Bruno Pacheco"

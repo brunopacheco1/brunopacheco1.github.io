@@ -2,6 +2,7 @@
 date = 2026-10-12T20:00:00+01:00
 categories = ['Quenya']
 title = "Teaching a Machine to Say Namárië"
+description = "How I improved QuenyaTTS, a text-to-speech model for Tolkien's Elvish, with better pronunciation rules, and how its voice compares to Tolkien reading Namárië."
 +++
 
 In my very [first Quenya post](/posts/paran-quenya-part-1/) (so proud of myself!), I listed [QuenyaTTS](https://annie-zhou1997.github.io/QuenyaTTS.github.io/) among the tools worth knowing: a text-to-speech system for Quenya built by [Annie Zhou](https://github.com/Annie-Zhou1997/) for her 2024 master's thesis at the University of Groningen.
