@@ -1,6 +1,6 @@
-languageCode = "pt"
-languageName = "Português"
-languageDirection = "ltr"
+locale = "pt"
+label = "Português"
+direction = "ltr"
 weight = 1
 
 title = "Home"

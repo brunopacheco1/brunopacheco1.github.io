@@ -4,3 +4,4 @@
 _gen
 public
 *.swp
+.hugo_build.lock
