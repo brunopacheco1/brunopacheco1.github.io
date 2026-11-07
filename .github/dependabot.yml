@@ -1,0 +1,14 @@
+version: 2
+updates:
+  # the Congo theme (a Hugo module)
+  - package-ecosystem: gomod
+    directory: /
+    schedule:
+      interval: weekly
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ['*']

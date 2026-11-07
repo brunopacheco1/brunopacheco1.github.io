@@ -1,9 +1,11 @@
 baseURL = "https://bruno.pacheco.lu/"
-languageCode = "en"
+locale = "en"
 enableRobotsTXT = true
-paginate = 10
 summaryLength = 0
 copyright = "© 2019 - 2026, Bruno Pacheco Lopes da Silva. This work is licensed under the Creative Commons Attribution 4.0 International License, copy at http://creativecommons.org/licenses/by/4.0/."
+
+[pagination]
+  pagerSize = 10
 
 [outputs]
   home = ["HTML", "RSS", "JSON"]
