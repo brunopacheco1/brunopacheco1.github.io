@@ -1,0 +1,10 @@
+{{- /* Umami options. The theme adds the Umami tracker (_partials/analytics.html) only in production builds
+  with a website ID set ([umamiAnalytics] in config/_default/params.toml). The tracker is deferred, so it reads
+  these options after this script has run.
+  - performance: also report the Core Web Vitals of each visit (LCP, INP, CLS, FCP, TTFB)
+  - doNotTrack: send nothing from browsers with Do Not Track switched on */ -}}
+{{- if and hugo.IsProduction site.Params.umamiAnalytics.site }}
+  <script>
+    window.umamiConfig = { performance: true, doNotTrack: true };
+  </script>
+{{- end }}
