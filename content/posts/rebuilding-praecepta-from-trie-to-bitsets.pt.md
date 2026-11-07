@@ -7,7 +7,7 @@ categories = ["Coding"]
 
 Em janeiro de 2023 escrevi sobre [trocar motores DMN por uma Trie](/pt/posts/optimizing-decision-making-with-trie-tree/). A ideia funcionou, e os números pareciam ótimos. Revendo tudo este ano, encontrei dois problemas. A memória da Trie explodia conforme as tabelas cresciam: uma tabela gerada com 1.000 regras ocupava **mais de 1 GB**. E o benchmark não era justo: o Praecepta rodava com uma hit policy diferente da do Camunda e do Kogito, e dois dos serviços liam uma das entradas do campo errado.
 
-Então eu o reconstruí. O [Praecepta 0.1.0](https://github.com/brunopacheco1/praecepta) já está no Maven Central: um motor Java pequeno, sem dependências, para tabelas de decisão DMN. Este post cobre o que mudou, um benchmark contra o Camunda e o Drools que me esforcei para deixar justo (inclusive onde ele favorece o Praecepta), o que esses motores fazem e o Praecepta não, quão aberto é o projeto, e o que pode vir a seguir. Nessa última parte, eu adoraria ouvir a sua opinião.
+Então eu o reconstruí. O [Praecepta 0.1.0](https://github.com/brunopacheco1/praecepta) já está no Maven Central: um motor Java pequeno, sem dependências, para tabelas de decisão DMN. Este post cobre o que mudou, um benchmark contra o Camunda e o Drools que me esforcei para deixar justo (inclusive onde ele favorece o Praecepta, e onde o Praecepta é mais lento), o que esses motores fazem e o Praecepta não, quão aberto é o projeto, e o que pode vir a seguir. Nessa última parte, eu adoraria ouvir a sua opinião.
 
 ## De uma Trie a bitsets
 
@@ -21,7 +21,7 @@ O novo núcleo usa **bitsets**. Cada regra ganha um bit. Para cada coluna, cada 
 | `"FR"` | 0 | 1 | 1 | 0 |
 | qualquer outro valor | 0 | 0 | 1 | 1 |
 
-A regra 1 testa `"PT"`, a regra 2 testa `"FR"`, a regra 3 é "qualquer valor" (por isso está em todas as máscaras) e a regra 4 é `not("FR")`. Avaliar uma entrada é buscar uma máscara por coluna e fazer um AND entre elas. Um AND de 64 bits verifica 64 regras de uma vez, e a tabela de 119 regras que vem com o projeto cabe em duas palavras. A memória cresce com colunas × valores × regras, nunca com o produto dos valores, e a tabela de 1.000 regras que precisava de 1 GB agora ocupa **0,4 MB** e é montada em cerca de 80 ms.
+A regra 1 testa `"PT"`, a regra 2 testa `"FR"`, a regra 3 é "qualquer valor" (por isso está em todas as máscaras) e a regra 4 é `not("FR")`. Avaliar uma entrada é buscar uma máscara por coluna e fazer um AND entre elas. Um AND de 64 bits verifica 64 regras de uma vez, e a tabela de 119 regras que vem com o projeto cabe em duas palavras. A memória cresce com colunas × valores × regras, nunca com o produto dos valores, e a tabela de 1.000 regras que precisava de 1 GB agora ocupa **0,6 MB**, e lê-la do DMN e montá-la leva cerca de um quarto de segundo numa JVM nova.
 
 A hit policy também sai direto dos bits. Os bits seguem a ordem das regras (ou a ordem de prioridade), então FIRST é "o bit ligado mais baixo", uma única instrução da CPU.
 
@@ -39,66 +39,156 @@ Números e datas funcionam do mesmo jeito: os limites que as regras mencionam (`
 ## O benchmark
 
 ### Como foi medido
-- **As mesmas regras para todos os motores.** Uma única lista de regras é escrita em DMN para o Camunda e o Drools. Antes de qualquer medição, todos os motores avaliam a carga inteira e os resultados são comparados; o benchmark é abortado se algum motor discordar.
-- **Configurações padrão e suportadas:** o motor DMN do Camunda 8 (dmn-scala 1.12.6, o mesmo que o Zeebe usa) e o runtime DMN do Drools 10.2.0. Cada motor lê o seu modelo uma única vez; só a avaliação é medida.
+- **As mesmas regras, o mesmo arquivo, para todos os motores.** Cada tabela é escrita uma única vez como documento DMN, e todos os motores, inclusive o Praecepta, leem esse documento, como faria uma aplicação que carrega um arquivo `.dmn`. Antes de qualquer medição, todos os motores avaliam a carga inteira e as respostas são comparadas com o Praecepta montado direto das regras. O benchmark é abortado se algum motor discordar.
+- **Configurações padrão e suportadas:** o motor DMN do Camunda 8 (dmn-scala 1.12.6, o mesmo que o Zeebe usa) e o runtime DMN do Drools 10.2.0.
 - **A mesma entrada para todos:** um `Map` de valores. O caminho mais rápido do Praecepta (classes geradas com enums) aparece separado, identificado como o seu melhor caso.
-- **Cinco tabelas:** a tabela real de 119 regras de 2023 (com valores ofuscados), tabelas geradas só de texto com 100 e 1.000 regras, e tabelas geradas de 100 e 1.000 regras que misturam colunas de texto, número e data com comparações, intervalos e `not(...)`.
-- **Código publicado:** o Praecepta 0.1.0 direto do Maven Central.
-- **Máquina:** Apple M2 Pro, 16 GB, macOS 26.7, OpenJDK 27. JMH: aquecimento de 5 × 2 s e medição de 5 × 3 s, 2 forks, uma thread.
+- **Muitas tabelas:**
+  - **Real:** a tabela de 119 regras de 2023 (com valores ofuscados, hit policy FIRST).
+  - **Geradas, `synthetic`:** só colunas de texto.
+  - **Geradas, `mixed`:** colunas de texto, número e data, com comparações, intervalos e `not(...)`.
+  - **Tamanhos:** as tabelas geradas vão de 10 a 10.000 regras e de 5 a 20 colunas. As mesmas 1.000 regras também rodam com cada hit policy, e com entradas que não casam com nenhuma regra.
+- **Mais do que uma média:** percentis de latência, memória alocada por decisão, vazão com 1, 4 e 8 threads compartilhando um motor, o tempo de montar um motor, e o tempo até a primeira decisão numa JVM nova.
+- **O motor da 0.1.0:** o código do motor é o mesmo da versão 0.1.0.
+- **Máquina:** Apple M2 Pro (8 núcleos de desempenho), 16 GB, macOS 26.7.1, OpenJDK 27.0.1. JMH: aquecimento de 5 × 2 s e medição de 5 × 3 s, 3 forks.
+- **Tudo é público:** [os resultados](https://github.com/brunopacheco1/praecepta/tree/main/praecepta-benchmarks/results/2026-11-07-apple-m2-pro-full) guardam todos os logs, a saída bruta do JMH e o ambiente, e um único script roda a suíte inteira de novo em cerca de 2,5 horas. Para verificar que o resultado não é um artefato da minha máquina, também rodei o perfil curto num [runner do GitHub Actions](https://github.com/brunopacheco1/praecepta/actions/runs/42391587868) (AMD EPYC, 4 vCPUs, Linux, Java 25). Ele usou um único fork, então os números têm mais ruído, e os tempos absolutos são 1,5–3× maiores, mas a ordem se mantém em todas as tabelas. No mixed-1000, por exemplo, o Praecepta levou 1,0 µs, o Camunda 519 µs e o Drools 421 µs.
 
-### Latência
+### Latência conforme as tabelas crescem
 
 {{< chart >}}
-type: 'bar',
+type: 'line',
 data: {
-  labels: ['real (119 regras)', 'synthetic-100', 'synthetic-1000', 'mixed-100', 'mixed-1000'],
+  labels: ['10 regras', '100 regras', '1.000 regras', '10.000 regras'],
   datasets: [
-    { label: 'Praecepta 0.1.0', data: [0.188, 0.150, 0.226, 0.485, 0.684], backgroundColor: '#0e7490' },
-    { label: 'Camunda 8 (dmn-scala 1.12.6)', data: [16.70, 19.47, 127.0, 37.21, 282.8], backgroundColor: '#f97316' },
-    { label: 'Drools 10.2.0', data: [59.79, 16.38, 143.9, 32.38, 276.1], backgroundColor: '#6366f1' }
+    { label: 'Praecepta 0.1.0', data: [0.31, 0.44, 0.64, 1.51], borderColor: '#0e7490', backgroundColor: '#0e7490' },
+    { label: 'Camunda 8 (dmn-scala 1.12.6)', data: [7.05, 33.2, 263, 3118], borderColor: '#f97316', backgroundColor: '#f97316' },
+    { label: 'Drools 10.2.0', data: [7.95, 31.3, 256, 3122], borderColor: '#6366f1', backgroundColor: '#6366f1' }
   ]
 },
 options: {
-  plugins: { title: { display: true, text: 'Tempo por avaliação (µs, escala logarítmica, menor é melhor)' } },
+  plugins: { title: { display: true, text: 'Tempo por avaliação nas tabelas mixed (µs, escala logarítmica, menor é melhor)' } },
   scales: { y: { type: 'logarithmic', title: { display: true, text: 'µs' } } }
 }
 {{< /chart >}}
 
-| µs por avaliação (± erro de 99,9%) | real | synthetic-100 | synthetic-1000 | mixed-100 | mixed-1000 |
-|---|---:|---:|---:|---:|---:|
-| **Praecepta 0.1.0** | **0,19** ± 0,01 | **0,15** ± 0,01 | **0,23** ± 0,01 | **0,49** ± 0,02 | **0,68** ± 0,04 |
-| Camunda 8 | 16,7 ± 0,1 | 19,5 ± 0,2 | 127 ± 3 | 37,2 ± 2,2 | 283 ± 25 |
-| Drools 10.2.0 | 59,8 ± 6,1 | 16,4 ± 2,7 | 144 ± 42 | 32,4 ± 1,2 | 276 ± 17 |
+| µs por avaliação | Praecepta 0.1.0 | Camunda 8 | Drools 10.2.0 |
+|---|---:|---:|---:|
+| real (119 regras) | **0,19** | 19,3 | 43,5 |
+| synthetic-10 | **0,15** | 4,20 | 5,89 |
+| synthetic-100 | **0,16** | 19,1 | 14,5 |
+| synthetic-1000 | **0,25** | 146 | 126 |
+| synthetic-10000 | **0,67** | 1.333 | 1.419 |
+| mixed-10 | **0,31** | 7,05 | 7,95 |
+| mixed-100 | **0,44** | 33,2 | 31,3 |
+| mixed-1000 | **0,64** | 263 | 256 |
+| mixed-10000 | **1,51** | 3.118 | 3.122 |
 
-O Praecepta é entre **70×** (mixed-100 contra o Drools) e **640×** (synthetic-1000 contra o Drools) mais rápido. Repare em duas coisas. Primeiro, o tempo do Praecepta quase não cresce de 100 para 1.000 regras, enquanto o dos outros cresce mais ou menos linearmente. Segundo, colunas de número e data custam ao Praecepta 2–3× mais que colunas de texto, porque uma busca binária em decimais é mais lenta que uma busca em hash; para isso já existe [uma issue](https://github.com/brunopacheco1/praecepta/issues/16).
+A diferença depende do tamanho da tabela:
+- **Praecepta:** de 10 para 10.000 regras mixed, o tempo vai de 0,31 para 1,51 µs, 5× mais lento para 1.000× mais regras.
+- **Camunda e Drools:** o tempo cresce mais ou menos com o número de regras, de cerca de 7 µs para cerca de 3.100 µs.
+- **A razão:** o Praecepta é 25–40× mais rápido com 10 regras, 70–120× com 100, 400–600× com 1.000 e cerca de 2.000× com 10.000. Na tabela real, é 104× mais rápido que o Camunda e 233× mais rápido que o Drools.
 
-O Drools foi o motor mais instável (±42 µs no synthetic-1000). Para verificar que o resultado não é um artefato da minha máquina, rodei a mesma suíte num runner do GitHub Actions (x86, Java 25). Os números absolutos mudam, mas a ordem se mantém: Praecepta 0,15–0,65 µs; Camunda 13,7–274 µs; Drools 12,4–218 µs.
+Mais colunas custam pouco ao Praecepta: com 1.000 regras, passar de 6 para 18 colunas mixed leva o tempo de 0,62 para 1,12 µs. Colunas de número e data custam 2–3× mais que colunas de texto, porque uma busca binária em decimais é mais lenta que uma busca em hash; para isso já existe [uma issue](https://github.com/brunopacheco1/praecepta/issues/16).
 
-### Memória e tempo de montagem
+51 das 63 medições de latência têm um intervalo de confiança de 99,9% dentro de ±10%. O mais largo é o do Drools no synthetic-10000, com ±33%. Todos estão nos resultados.
+
+### Hit policies, e entradas que não casam com nenhuma regra
+
+| µs por avaliação, 1.000 regras mixed | Praecepta 0.1.0 | Camunda 8 | Drools 10.2.0 |
+|---|---:|---:|---:|
+| COLLECT | **0,64** | 263 | 256 |
+| FIRST | **0,53** | 49,6 | 248 |
+| PRIORITY | **0,55** | 287 | 252 |
+| RULE ORDER | **0,64** | 285 | 257 |
+| UNIQUE (1.000 regras que nunca se sobrepõem) | **0,23** | 161 | 128 |
+| Nenhuma regra casa (COLLECT) | **0,32** | 261 | 197 |
+
+- **Praecepta:** a hit policy quase não muda o tempo, porque é uma única operação sobre os bits que casaram. Uma entrada que não casa com nada não custa mais do que uma que casa.
+- **Camunda:** é 5× mais rápido com FIRST, o que sugere que ele para na primeira regra que casa.
+- **Drools:** leva mais ou menos o mesmo tempo com qualquer hit policy. Quando nada casa, ainda paga cerca de três quartos do tempo de uma entrada que casa, e o Camunda quase o tempo todo.
+- **A tabela real** não tem entradas assim: a sua última regra casa com qualquer valor.
+
+### Latência de cauda e memória por decisão
+
+| µs por avaliação | p50 | p99 | p99.9 |
+|---|---:|---:|---:|
+| **Praecepta**, real | **0,17** | **0,29** | **0,54** |
+| Camunda 8, real | 17,7 | 32,4 | 41,1 |
+| Drools 10.2.0, real | 51,8 | 69,8 | 85,5 |
+| **Praecepta**, mixed-1000 | **0,67** | **1,00** | **2,57** |
+| Camunda 8, mixed-1000 | 250 | 323 | 444 |
+| Drools 10.2.0, mixed-1000 | 260 | 309 | 386 |
+
+- **Caudas:** o percentil 99,9 do Praecepta no mixed-1000 (2,6 µs) ainda fica cerca de 100× abaixo da mediana dos outros.
+- **As decisões mais lentas:** a decisão mais lenta de cada motor levou até alguns milissegundos, muito provavelmente por pausas da JVM ou do sistema operacional, que todos os motores sofrem.
+- **Alocação:** em tabelas de até 1.000 regras, o Praecepta aloca de 32 a 466 bytes por decisão. O Camunda aloca de 22 KB a 1,5 MB, e o Drools de 16 KB a 375 KB. Menos lixo significa menos coleta de lixo sob carga.
+
+### Vazão com várias threads
 
 {{< chart >}}
 type: 'bar',
 data: {
-  labels: ['real (119 regras)', 'synthetic-100', 'synthetic-1000', 'mixed-100', 'mixed-1000'],
+  labels: ['1 thread', '4 threads', '8 threads'],
   datasets: [
-    { label: 'Praecepta 0.1.0', data: [0.2, 0.3, 0.4, 0.4, 0.9], backgroundColor: '#0e7490' },
-    { label: 'Camunda 8', data: [4.6, 4.9, 16.1, 5.0, 16.5], backgroundColor: '#f97316' },
-    { label: 'Drools 10.2.0', data: [6.6, 7.0, 13.8, 7.5, 15.8], backgroundColor: '#6366f1' }
+    { label: 'Praecepta 0.1.0', data: [5374, 21158, 33796], backgroundColor: '#0e7490' },
+    { label: 'Camunda 8', data: [61.0, 231, 451], backgroundColor: '#f97316' },
+    { label: 'Drools 10.2.0', data: [20.9, 78.6, 146], backgroundColor: '#6366f1' }
   ]
 },
 options: {
-  plugins: { title: { display: true, text: 'Heap retido após a montagem (MB, menor é melhor)' } },
-  scales: { y: { title: { display: true, text: 'MB' } } }
+  plugins: { title: { display: true, text: 'Decisões por milissegundo na tabela real, um motor compartilhado por todas as threads (escala logarítmica, maior é melhor)' } },
+  scales: { y: { type: 'logarithmic', title: { display: true, text: 'decisões / ms' } } }
 }
 {{< /chart >}}
 
-| Tempo de montagem | real | synthetic-100 | synthetic-1000 | mixed-100 | mixed-1000 |
-|---|---:|---:|---:|---:|---:|
-| **Praecepta 0.1.0** | **39 ms** | **60 ms** | **82 ms** | **68 ms** | **167 ms** |
-| Camunda 8 | 437 ms | 488 ms | 700 ms | 534 ms | 808 ms |
-| Drools 10.2.0 | 336 ms | 401 ms | 628 ms | 491 ms | 1.060 ms |
+Os três motores podem ser compartilhados entre threads, e todos escalam.
+- **De 1 para 8 threads:** o Praecepta vai de 5.374 para 33.796 decisões por milissegundo (6,3×), o Camunda de 61 para 451 (7,4×) e o Drools de 21 para 146 (7,0×).
+- **Locks:** o motor do Praecepta é imutável, então as threads o compartilham sem nenhum.
+- **mixed-1000, 8 threads:** 11.721 decisões por milissegundo no Praecepta, contra 29 no Camunda e 23 no Drools.
 
-Cada motor é montado numa JVM nova, e "heap retido" é o heap ainda em uso depois de montá-lo e rodar uma coleta de lixo.
+### Inicialização e montagem
+
+| ms | Praecepta 0.1.0 | Camunda 8 | Drools 10.2.0 |
+|---|---:|---:|---:|
+| Ler o DMN e montar o motor, JVM aquecida: real | **6,5** | 22,6 | 36,1 |
+| Ler o DMN e montar o motor, JVM aquecida: mixed-1000 | **45** | 57 | 437 |
+| Primeira decisão numa JVM nova: real | **76** | 469 | 379 |
+| Primeira decisão numa JVM nova: mixed-1000 | **240** | 774 | 1.005 |
+
+A "primeira decisão" inicia uma JVM nova, lê o arquivo DMN, monta o motor e avalia uma entrada. Na tabela real, o Praecepta responde em 76 ms, 5–6× antes dos outros. Isso importa para ferramentas de linha de comando, funções serverless e suítes de teste, e bem menos para serviços que ficam rodando por muito tempo.
+
+### Memória
+
+{{< chart >}}
+type: 'bar',
+data: {
+  labels: ['10 regras', '100 regras', '1.000 regras', '10.000 regras'],
+  datasets: [
+    { label: 'Praecepta 0.1.0', data: [0.6, 0.6, 1.1, 5.0], backgroundColor: '#0e7490' },
+    { label: 'Camunda 8', data: [3.6, 4.8, 16.3, 133], backgroundColor: '#f97316' },
+    { label: 'Drools 10.2.0', data: [6.6, 7.4, 15.9, 108], backgroundColor: '#6366f1' }
+  ]
+},
+options: {
+  plugins: { title: { display: true, text: 'Heap retido após a montagem, tabelas mixed (MB, escala logarítmica, menor é melhor)' } },
+  scales: { y: { type: 'logarithmic', title: { display: true, text: 'MB' } } }
+}
+{{< /chart >}}
+
+"Heap retido" é o heap ainda em uso depois de montar o motor numa JVM nova e rodar uma coleta de lixo.
+- **Com 10.000 regras:** o Praecepta ocupa 5 MB, contra 133 MB do Camunda e 108 MB do Drools.
+- **Em todas as tabelas geradas:** usa de 6 a 88 vezes menos.
+- **A tabela real:** ali o Praecepta ocupou pouco demais para a medição conseguir distinguir (menos de 0,5 MB).
+
+### Onde o Praecepta é mais lento: montar tabelas FIRST e PRIORITY
+
+| Tempo de montagem numa JVM nova, 1.000 regras mixed | Praecepta 0.1.0 | Camunda 8 | Drools 10.2.0 |
+|---|---:|---:|---:|
+| COLLECT | **0,30 s** | 0,87 s | 1,17 s |
+| RULE ORDER | **0,27 s** | 0,83 s | 1,07 s |
+| FIRST | 3,6 s | **0,85 s** | 1,15 s |
+| PRIORITY | 68,7 s | **0,82 s** | 1,12 s |
+
+Ao montar uma tabela FIRST ou PRIORITY, o Praecepta procura regras que nunca disparam: a validação descrita acima. A verificação é exata, e com 1.000 regras aleatórias e sobrepostas ela sai cara: 3,6 s com FIRST, e mais de um minuto com PRIORITY. A avaliação não é afetada, e a tabela real de 119 regras, que é FIRST, é montada em 74 ms. Mesmo assim, um minuto não é aceitável. A [issue #29](https://github.com/brunopacheco1/praecepta/issues/29) acompanha tornar essa verificação opcional, limitada ou mais barata.
 
 ### O melhor caso do Praecepta
 
@@ -115,13 +205,14 @@ options: {
 }
 {{< /chart >}}
 
-Isso dá cerca de **100 ns** por decisão na tabela real. Para manter a comparação justa, a comparação entre motores acima usa entradas `Map` para todos, inclusive o Praecepta.
+Isso dá cerca de **100 ns** por decisão na tabela real, numa rodada anterior do mesmo código. Para manter a comparação justa, tudo acima usa entradas `Map` para todos os motores, inclusive o Praecepta.
 
 ## Sendo justo: o que os números não dizem
 
-**Onde a comparação favorece o Praecepta:**
+**Onde a comparação favorece o Praecepta, ou tem limites:**
 - **O Praecepta faz menos trabalho.** O Camunda e o Drools são interpretadores FEEL de uso geral. Mesmo quando uma célula é um teste simples, eles a avaliam com uma maquinaria capaz de lidar com expressões arbitrárias, e devolvem resultados mais ricos. O Praecepta só suporta o que consegue indexar.
-- **O teste é restrito.** Ele roda dentro do processo, numa única thread, com a JVM já aquecida. Um serviço real soma HTTP e serialização, que normalmente custam bem mais que 20 µs, então em muitos sistemas o motor nem é o gargalo.
+- **Continua sendo um microbenchmark.** Ele roda dentro do processo, numa única máquina. Um serviço real soma HTTP e serialização, que normalmente custam bem mais que 20 µs, então em muitos sistemas o motor nem é o gargalo.
+- **Tabelas geradas não são tabelas reais.** As suas regras são aleatórias, então se sobrepõem de jeitos que tabelas reais talvez não se sobreponham. Só uma tabela real foi medida: as tabelas do kit de conformidade do DMN usam todas colunas booleanas, que o Praecepta ainda não suporta.
 - **Nem toda opção foi medida.** O modelo compilado (executável) do Drools, gerado no build pelo Kogito, não foi medido; ele pode ser mais rápido que o caminho de DMN em runtime que usei. A opção experimental "alpha network" do Drools deu respostas erradas nessas tabelas na versão 10.2.0, então o benchmark se recusou a medi-la.
 
 **O que o Camunda e o Drools fazem e o Praecepta não:**
@@ -232,6 +323,6 @@ Estas são as funcionalidades que acho que seriam úteis. **Me diga quais você 
 
 ## Para encerrar
 
-A Trie de 2023 provou a ideia e bateu num limite. Os bitsets a levaram mais longe: nessas tabelas, de 70 a 640 vezes mais rápido que motores DMN de uso geral, com 18 a 40 vezes menos memória, e honesto sobre o que não faz. Experimente, me conte onde ele quebra, e me diga o que você gostaria que ele fizesse a seguir.
+A Trie de 2023 provou a ideia e bateu num limite. Os bitsets a levaram mais longe: nessas tabelas, de 20 a 2.000 vezes mais rápido que motores DMN de uso geral, com 6 a 88 vezes menos memória, e honesto sobre o que não faz, inclusive uma montagem que ainda é lenta para tabelas FIRST e PRIORITY grandes. Experimente, me conte onde ele quebra, e me diga o que você gostaria que ele fizesse a seguir.
 
 **See you | Bis geschwënn | Até mais | À bientôt**
