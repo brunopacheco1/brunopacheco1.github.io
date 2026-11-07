@@ -80,9 +80,9 @@ fingerprintAlgorithm = "sha256"
 # Cookieless analytics (Umami Cloud, EU region), described on the privacy page (content/privacy.*.md).
 # The website ID comes from Umami Cloud (Settings > Websites). It is not a secret: every page includes it.
 # Only production builds load the tracker; layouts/_partials/extend-head.html sets its options.
-#[umamiAnalytics]
-#  site = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-#  region = "eu"
+[umamiAnalytics]
+  site = "c97339ad-1b5e-47e1-a28f-7344998c6e2d"
+  region = "eu"
 
 [verification]
   # google = ""
