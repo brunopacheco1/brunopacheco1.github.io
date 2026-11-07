@@ -5,6 +5,10 @@ description = "An experience report: replacing DMN rules engines (Kogito, Camund
 categories = ["Coding"]
 +++
 
+{{< alert >}}
+**Update, November 2026:** the benchmark in this post was not like-for-like. Praecepta ran the UNIQUE hit policy while Camunda and Kogito ran FIRST, and two of the services read one input from the wrong field. Praecepta has since been rebuilt and measured again, fairly, against Camunda 8 and Drools: see [Rebuilding Praecepta](/posts/rebuilding-praecepta-from-trie-to-bitsets/).
+{{< /alert >}}
+
 In Pictet Technologies, my team relies a lot on decision models. These models allow our business analysts to input Compliance business rules directly into the systems with minimal developer intervention. When I joined the company, we used to use both [Drools](https://www.kie.org/) and [Camunda](https://camunda.com/). However, we faced severe memory and performance issues, specifically with Camunda, prompting me to explore alternatives.
 
 For those not familiar with these solutions, both are rules engine providers. And a rules engine is a software system designed to process and execute sets of business rules. These rules provide automated decisions based on a set of inputs. In a nutshell, a rules engine is a very sophisticated if/else interpreter. For more details, I suggest you follow this [link](http://www.mastertheboss.com/bpm/drools/what-is-a-rule-engine/).
