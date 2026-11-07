@@ -219,6 +219,7 @@ These are the features I think would be useful. **Tell me which ones you would u
 
 - [Boolean, time and date-time columns](https://github.com/brunopacheco1/praecepta/issues/12)
 - [String ranges in cells](https://github.com/brunopacheco1/praecepta/issues/13)
+- [Inputs with several values, e.g. more than one nationality](https://github.com/brunopacheco1/praecepta/issues/25)
 - [Decision requirement graphs (chained decisions)](https://github.com/brunopacheco1/praecepta/issues/14)
 - [A COUNT aggregation](https://github.com/brunopacheco1/praecepta/issues/15)
 - [Faster number and date columns](https://github.com/brunopacheco1/praecepta/issues/16)

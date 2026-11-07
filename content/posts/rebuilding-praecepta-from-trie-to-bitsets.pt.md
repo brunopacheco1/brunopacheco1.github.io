@@ -219,6 +219,7 @@ Estas são as funcionalidades que acho que seriam úteis. **Me diga quais você 
 
 - [Colunas booleanas, de hora e de data-hora](https://github.com/brunopacheco1/praecepta/issues/12)
 - [Intervalos de texto nas células](https://github.com/brunopacheco1/praecepta/issues/13)
+- [Entradas com vários valores, por exemplo mais de uma nacionalidade](https://github.com/brunopacheco1/praecepta/issues/25)
 - [Grafos de requisitos de decisão (decisões encadeadas)](https://github.com/brunopacheco1/praecepta/issues/14)
 - [Uma agregação COUNT](https://github.com/brunopacheco1/praecepta/issues/15)
 - [Colunas de número e data mais rápidas](https://github.com/brunopacheco1/praecepta/issues/16)
