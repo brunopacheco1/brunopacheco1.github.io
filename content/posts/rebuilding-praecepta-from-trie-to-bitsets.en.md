@@ -1,6 +1,6 @@
 +++
 date = 2026-11-07T12:00:00+01:00
-title = "Rebuilding Praecepta: From a Trie to Bitsets, and a Fair Benchmark Against Camunda and Drools"
+title = "Rebuilding My DMN Engine: From a Trie to Bitsets, and a Fair Benchmark Against Camunda and Drools"
 description = "Praecepta 0.1.0 is on Maven Central: a DMN decision-table engine rebuilt around bitsets, measured fairly against Camunda 8 and Drools, with its gaps stated plainly. How to use it, how open it is, and what could come next."
 categories = ["Coding"]
 +++
