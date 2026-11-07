@@ -5,15 +5,21 @@ description = "O Praecepta 0.1.0 está no Maven Central: um motor de tabelas de 
 categories = ["Coding"]
 +++
 
-Em janeiro de 2023 escrevi sobre [trocar motores DMN por uma Trie](/pt/posts/optimizing-decision-making-with-trie-tree/). A ideia funcionou, e os números pareciam ótimos. Revendo tudo este ano, encontrei dois problemas. A memória da Trie explodia conforme as tabelas cresciam: uma tabela gerada com 1.000 regras ocupava **mais de 1 GB**. E o benchmark não era justo: o Praecepta rodava com uma hit policy diferente da do Camunda e do Kogito, e dois dos serviços liam uma das entradas do campo errado.
+Em janeiro de 2023 escrevi sobre [otimizar a tomada de decisão com uma Trie](/pt/posts/optimizing-decision-making-with-trie-tree/). A ideia funcionou em princípio: parte dela foi implementada, e ainda é mantida, na [Pictet Tech](https://www.pictet.com/mc/en/about/pictet-tech). Os números pareciam ótimos, como você pode ver no meu post anterior.
 
-Então eu o reconstruí. O [Praecepta 0.1.0](https://github.com/brunopacheco1/praecepta) já está no Maven Central: um motor Java pequeno, sem dependências, para tabelas de decisão DMN. Este post cobre o que mudou, um benchmark contra o Camunda e o Drools que me esforcei para deixar justo (inclusive onde ele favorece o Praecepta, e onde o Praecepta é mais lento), o que esses motores fazem e o Praecepta não, quão aberto é o projeto, e o que pode vir a seguir. Nessa última parte, eu adoraria ouvir a sua opinião.
+Revendo meus repositórios antigos em busca de oportunidades para testar o [Claude](https://claude.ai/new), decidi explorar o maior problema daquela solução: a memória da Trie explodia conforme as tabelas cresciam; uma tabela gerada com 1.000 regras ocupava **mais de 1 GB**. E, durante o desenvolvimento, o Claude me disse que o primeiro benchmark não era totalmente justo, já que o Praecepta rodava com uma hit policy diferente da do Camunda e do Kogito, e dois dos serviços liam uma das entradas do campo errado.
+
+Então refatorei o motor e o benchmark, e completei o plugin Maven que compila as tabelas no build. O resultado da refatoração está no [Praecepta 0.1.0](https://github.com/brunopacheco1/praecepta), no Maven Central. Os princípios continuam os mesmos: um motor Java pequeno e sem dependências para tabelas de decisão DMN. Agora ele também tem um [site](https://bruno.pacheco.lu/praecepta/) para o guia e a documentação da API.
+
+Este post cobre o que mudou, um benchmark contra o Camunda e o Drools que me esforcei para deixar justo (inclusive onde ele favorece o Praecepta, e onde o Praecepta é mais lento), e o que esses motores fazem e o Praecepta não. Este post também cobre quão aberto o Praecepta é, e o que pode vir a seguir. Nessa última parte, eu adoraria ouvir a sua opinião.
 
 ## De uma Trie a bitsets
 
-Uma tabela de decisão é uma lista de regras. Cada regra testa algumas colunas de entrada (`country é "PT" ou "ES"`, `age em [18..65)`, ou "qualquer valor") e produz saídas. A Trie guardava todos os caminhos possíveis pelas colunas, e cada célula "qualquer valor" multiplicava os caminhos. Essa multiplicação era o problema de memória, e nenhum ajuste fino resolve isso.
+Uma tabela de decisão é uma simples lista de regras. Cada regra testa algumas colunas de entrada (`country é "PT" ou "ES"`, `age em [18..65)`, ou "qualquer valor") e produz saídas. A solução anterior, uma implementação própria de uma [Trie](https://www.geeksforgeeks.org/dsa/trie-insert-and-search/), guardava todos os caminhos possíveis pelas colunas, e cada célula "qualquer valor" multiplicava os caminhos. Essa multiplicação era o problema de memória!
 
-O novo núcleo usa **bitsets**. Cada regra ganha um bit. Para cada coluna, cada valor que as regras conseguem distinguir ganha uma máscara: o conjunto de regras que aceitam aquele valor.
+Tentei algumas coisas na época, inclusive computação quântica, com o [qengine](https://github.com/brunopacheco1/qengine/tree/main/src/main/java/com/github/brunopacheco1/qengine): codificar a entrada como bits e cada regra como portas lógicas quânticas, para ver se um circuito quântico superava a Trie. Ele só rodou num simulador, mas a ideia ficou comigo: casar regras é lógica booleana sobre bits. O índice de bitsets é a versão clássica e prática dessa ideia.
+
+No fim, parei de pensar nisso. Mas agora, em 2026, e com o apoio do Claude, o novo núcleo usa **bitsets**. Cada regra ganha um bit. Para cada coluna, cada valor que as regras conseguem distinguir ganha uma máscara: o conjunto de regras que aceitam aquele valor.
 
 | Coluna `country` | regra 1 | regra 2 | regra 3 | regra 4 |
 |---|:---:|:---:|:---:|:---:|
@@ -285,28 +291,29 @@ O build falha se a tabela tiver erros (por exemplo, duas regras UNIQUE que se so
 Eu queria um projeto pequeno e fácil de confiar. Na prática, isso significa:
 
 - **Licença:** Apache-2.0. O repositório segue o [REUSE](https://reuse.software): cada arquivo diz quem o escreveu e sob qual licença.
-- **Tudo em público:** o código, a CI, o [plano de modernização](https://github.com/brunopacheco1/praecepta/blob/main/docs/MODERNISATION.md) fase a fase, o benchmark e as issues.
+- **Tudo em público:** o código, a CI, o [plano de modernização](https://github.com/brunopacheco1/praecepta/blob/main/docs/MODERNISATION.md) fase a fase, o benchmark com todos os resultados, e as issues. Também o [roadmap](https://github.com/brunopacheco1/praecepta/blob/main/docs/ROADMAP.md), a [arquitetura](https://github.com/brunopacheco1/praecepta/blob/main/docs/ARCHITECTURE.md), o [caso de garantia de segurança](https://github.com/brunopacheco1/praecepta/blob/main/docs/SECURITY-ASSURANCE.md) e a [governança](https://github.com/brunopacheco1/praecepta/blob/main/GOVERNANCE.md), que também diz quem assume se eu parar.
 - **Integridade das versões:** cada artefato é assinado com GPG e vem com um SBOM (CycloneDX), proveniência de build (SLSA, verificável com `gh attestation verify`) e avisos de terceiros. Os builds são reproduzíveis.
-- **Verificações em cada mudança:** testes em três versões do Java, testes do plugin em três versões do Maven, um quality gate do SonarCloud, CodeQL, verificação de licenças e de vulnerabilidades das dependências, e fuzzing dos dois parsers que leem entradas não confiáveis.
-- **[OpenSSF Scorecard](https://scorecard.dev/viewer/?uri=github.com/brunopacheco1/praecepta): 7,8 / 10.**
+- **Verificações em cada mudança:** testes em três versões do Java, testes do plugin em três versões do Maven, um estilo de código obrigatório com os avisos do compilador tratados como erros, um quality gate do SonarCloud, CodeQL, verificação de licenças e de vulnerabilidades das dependências, e fuzzing dos dois parsers que leem entradas não confiáveis, em cada pull request que mexe no motor e por mais tempo toda semana.
+- **Um `main` protegido:** só commits assinados, e toda mudança chega por um pull request que passa nas verificações e é aprovado por um code owner.
+- **Selos de emissores independentes:** o selo **prata** do [OpenSSF Best Practices](https://www.bestpractices.dev/projects/16426) e o nível 1 do OpenSSF Baseline (cada resposta aponta para a sua evidência), a [conformidade REUSE](https://api.reuse.software/info/github.com/brunopacheco1/praecepta) verificada pela FSFE, e o [OpenSSF Scorecard](https://scorecard.dev/viewer/?uri=github.com/brunopacheco1/praecepta), que verifica o repositório de novo toda semana: **8,8 / 10**.
 
   ![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/brunopacheco1/praecepta/badge)
 
-O item mais baixo do Scorecard é **code review**, e vale explicar. Qualquer pessoa pode fazer um fork do projeto e abrir um pull request. O que essa verificação mede é outra coisa: se cada mudança que chegou ao `main` foi aprovada por alguém além do autor. Hoje isso é zero, porque sou o único mantenedor e ninguém pode aprovar as próprias mudanças. Cada contribuição que eu revisar aumenta esse número, e um segundo mantenedor o completaria. O que me leva à próxima parte.
+O item mais baixo do Scorecard é **code review**, e vale explicar. Qualquer pessoa pode fazer um fork do projeto e abrir um pull request. O que essa verificação mede é outra coisa: se cada mudança que chegou ao `main` foi aprovada por alguém além do autor. Hoje isso é zero, porque sou o único mantenedor e ninguém pode aprovar as próprias mudanças. O mesmo motivo impede a nota máxima na proteção de branch: eu faço o merge dos meus próprios pull requests com o bypass de administrador. Cada contribuição que eu revisar aumenta o primeiro número, e um segundo mantenedor completaria os dois. A [governança](https://github.com/brunopacheco1/praecepta/blob/main/GOVERNANCE.md) explica como se tornar um. O que me leva à próxima parte.
 
 ## Quer ajudar?
 
-O [guia de contribuição](https://github.com/brunopacheco1/praecepta/blob/main/CONTRIBUTING.md) explica como compilar e testar. Boas primeiras issues:
+O [site](https://bruno.pacheco.lu/praecepta/) reúne o guia, a documentação da API e como o motor funciona, e o [guia de contribuição](https://github.com/brunopacheco1/praecepta/blob/main/CONTRIBUTING.md) explica como compilar e testar. Boas primeiras issues:
 
 - [intervalos de texto nas células](https://github.com/brunopacheco1/praecepta/issues/13);
 - [uma agregação COUNT](https://github.com/brunopacheco1/praecepta/issues/15);
 - [rodar o kit de conformidade do DMN](https://github.com/brunopacheco1/praecepta/issues/22).
 
-Revisores e um co-mantenedor também são muito bem-vindos.
+Revisores e um co-mantenedor também são muito bem-vindos: a [governança](https://github.com/brunopacheco1/praecepta/blob/main/GOVERNANCE.md) descreve os papéis e como as decisões são tomadas.
 
 ## O que pode vir a seguir?
 
-Estas são as funcionalidades que acho que seriam úteis. **Me diga quais você usaria**: um 👍 na issue já basta, e um comentário se quiser construí-la.
+Estas são as funcionalidades que acho que seriam úteis; o [roadmap](https://github.com/brunopacheco1/praecepta/blob/main/docs/ROADMAP.md) as coloca em ordem para o próximo ano. **Me diga quais você usaria**: um 👍 na issue já basta, e um comentário se quiser construí-la.
 
 - [Colunas booleanas, de hora e de data-hora](https://github.com/brunopacheco1/praecepta/issues/12)
 - [Intervalos de texto nas células](https://github.com/brunopacheco1/praecepta/issues/13)
@@ -325,4 +332,4 @@ Estas são as funcionalidades que acho que seriam úteis. **Me diga quais você 
 
 A Trie de 2023 provou a ideia e bateu num limite. Os bitsets a levaram mais longe: nessas tabelas, de 20 a 2.000 vezes mais rápido que motores DMN de uso geral, com 6 a 88 vezes menos memória, e honesto sobre o que não faz, inclusive uma montagem que ainda é lenta para tabelas FIRST e PRIORITY grandes. Experimente, me conte onde ele quebra, e me diga o que você gostaria que ele fizesse a seguir.
 
-**See you | Bis geschwënn | Até mais | À bientôt**
+**Namárië | See you | Bis geschwënn | Até mais | À bientôt**

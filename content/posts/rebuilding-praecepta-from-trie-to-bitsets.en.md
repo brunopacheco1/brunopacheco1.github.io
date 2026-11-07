@@ -5,15 +5,21 @@ description = "Praecepta 0.1.0 is on Maven Central: a DMN decision-table engine 
 categories = ["Coding"]
 +++
 
-In January 2023 I wrote about [replacing DMN engines with a trie](/posts/optimizing-decision-making-with-trie-tree/). The idea worked, and the numbers looked great. Looking back at it this year, I found two problems. The trie's memory exploded as tables grew: a generated table of 1,000 rules took **over 1 GB**. And the benchmark was not fair: Praecepta ran a different hit policy from Camunda and Kogito, and two of the services read one input from the wrong field.
+In January 2023 I wrote about [optimizing decision-making with a trie](/posts/optimizing-decision-making-with-trie-tree/). The idea worked in principle: part of it was implemented, and is still maintained, at [Pictet Tech](https://www.pictet.com/mc/en/about/pictet-tech). The numbers looked great, as you can see in my previous post.
 
-So I rebuilt it. [Praecepta 0.1.0](https://github.com/brunopacheco1/praecepta) is now on Maven Central: a small, dependency-free Java engine for DMN decision tables. This post covers what changed, a benchmark against Camunda and Drools that I tried hard to make fair (including where it flatters Praecepta, and where Praecepta is slower), what those engines do that Praecepta does not, how open the project is, and what could come next. That last part is where I would love your opinion.
+Going through my old repositories for opportunities to test [Claude](https://claude.ai/new), I decided to explore the major problem of that solution: the trie's memory exploded as tables grew; a generated table of 1,000 rules took **over 1 GB**. And during the development process, Claude told me that the first benchmark was not entirely fair, as Praecepta ran a different hit policy from Camunda and Kogito, and two of the services read one input from the wrong field.
+
+So I refactored the engine and the benchmark, and completed the Maven plugin that compiles tables at build time. The result of the refactoring can be found in [Praecepta 0.1.0](https://github.com/brunopacheco1/praecepta) on Maven Central. The principles are still the same: a small, dependency-free Java engine for DMN decision tables. It now also has a [website](https://bruno.pacheco.lu/praecepta/) for the guide and the API documentation.
+
+This post covers what changed, a benchmark against Camunda and Drools that I tried hard to make fair (including where it flatters Praecepta, and where Praecepta is slower), and what those engines do that Praecepta does not. This post also covers how open Praecepta is, and what could come next. That last part is where I would love your opinion.
 
 ## From a trie to bitsets
 
-A decision table is a list of rules. Each rule tests some input columns (`country is "PT" or "ES"`, `age in [18..65)`, or "anything") and produces outputs. The trie stored every possible path through the columns, and every "anything" cell multiplied the paths. That multiplication was the memory problem, and no amount of tuning fixes it.
+A decision table is a simple list of rules. Each rule tests some input columns (`country is "PT" or "ES"`, `age in [18..65)`, or "anything") and produces outputs. The previous solution, a custom implementation of a [trie](https://www.geeksforgeeks.org/dsa/trie-insert-and-search/), stored every possible path through the columns, and every "anything" cell multiplied the paths. That multiplication was the memory problem!
 
-The new core uses **bitsets**. Every rule gets one bit. For every column, each distinct value the rules can tell apart gets a mask: the set of rules that accept it.
+I tried a couple of things back then, including quantum computing via [qengine](https://github.com/brunopacheco1/qengine/tree/main/src/main/java/com/github/brunopacheco1/qengine): encoding the input as bits and each rule as quantum logic gates, to see whether a quantum circuit could beat the trie. It ran only on a simulator, but the thought stayed with me: rule matching is boolean logic over bits. The bitset index is the classical, practical version of that thought.
+
+In the end, I stopped thinking about it. But now, in 2026, and with Claude's support, the new core uses **bitsets**. Every rule gets one bit. For every column, each distinct value the rules can tell apart gets a mask: the set of rules that accept it.
 
 | Column `country` | rule 1 | rule 2 | rule 3 | rule 4 |
 |---|:---:|:---:|:---:|:---:|
@@ -285,28 +291,29 @@ The build fails if the table has errors (for example, two UNIQUE rules that over
 I wanted a small project that is easy to trust. Here is what that means in practice:
 
 - **Licence:** Apache-2.0. The repository is [REUSE](https://reuse.software)-compliant: every file says who wrote it and under which licence.
-- **Everything in public:** the code, the CI, the [modernisation plan](https://github.com/brunopacheco1/praecepta/blob/main/docs/MODERNISATION.md) phase by phase, the benchmark harness, and the issues.
+- **Everything in public:** the code, the CI, the [modernisation plan](https://github.com/brunopacheco1/praecepta/blob/main/docs/MODERNISATION.md) phase by phase, the benchmark harness and every result, and the issues. So are the [roadmap](https://github.com/brunopacheco1/praecepta/blob/main/docs/ROADMAP.md), the [architecture](https://github.com/brunopacheco1/praecepta/blob/main/docs/ARCHITECTURE.md), the [security assurance case](https://github.com/brunopacheco1/praecepta/blob/main/docs/SECURITY-ASSURANCE.md) and the [governance](https://github.com/brunopacheco1/praecepta/blob/main/GOVERNANCE.md), which also says who takes over if I stop.
 - **Release integrity:** every artifact is GPG-signed and ships with an SBOM (CycloneDX), build provenance (SLSA, verifiable with `gh attestation verify`) and third-party notices. The builds are reproducible.
-- **Checks on every change:** tests on three Java versions, plugin tests on three Maven versions, a SonarCloud quality gate, CodeQL, dependency licence and vulnerability checks, and fuzzing of the two parsers that read untrusted input.
-- **[OpenSSF Scorecard](https://scorecard.dev/viewer/?uri=github.com/brunopacheco1/praecepta): 7.8 / 10.**
+- **Checks on every change:** tests on three Java versions, plugin tests on three Maven versions, an enforced code style with compiler warnings as errors, a SonarCloud quality gate, CodeQL, dependency licence and vulnerability checks, and fuzzing of the two parsers that read untrusted input, on every pull request that touches the engine and for longer every week.
+- **A protected `main`:** signed commits only, and every change arrives through a pull request that passes the checks and is approved by a code owner.
+- **Badges from independent issuers:** the [OpenSSF Best Practices](https://www.bestpractices.dev/projects/16426) **silver** badge and OpenSSF Baseline level 1 (every answer links to its evidence), [REUSE compliance](https://api.reuse.software/info/github.com/brunopacheco1/praecepta) checked by the FSFE, and the [OpenSSF Scorecard](https://scorecard.dev/viewer/?uri=github.com/brunopacheco1/praecepta), which rechecks the repository every week: **8.8 / 10**.
 
   ![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/brunopacheco1/praecepta/badge)
 
-The lowest Scorecard item is **code review**, and it is worth explaining. Anyone can fork the project and open a pull request. The check measures something else: whether each change that reached `main` was approved by someone other than its author. Today that is zero, because I am the only maintainer, and nobody can approve their own changes. Every contribution I review raises it, and a second maintainer would close it. Which brings me to the next part.
+The lowest Scorecard item is **code review**, and it is worth explaining. Anyone can fork the project and open a pull request. The check measures something else: whether each change that reached `main` was approved by someone other than its author. Today that is zero, because I am the only maintainer, and nobody can approve their own changes. The same reason keeps branch protection from a full score: I merge my own pull requests with an administrator's bypass. Every contribution I review raises the first, and a second maintainer would close both. The [governance](https://github.com/brunopacheco1/praecepta/blob/main/GOVERNANCE.md) explains how to become one. Which brings me to the next part.
 
 ## Want to help?
 
-The [contributing guide](https://github.com/brunopacheco1/praecepta/blob/main/CONTRIBUTING.md) explains how to build and test it. Good first issues:
+The [website](https://bruno.pacheco.lu/praecepta/) gathers the guide, the API documentation and how the engine works, and the [contributing guide](https://github.com/brunopacheco1/praecepta/blob/main/CONTRIBUTING.md) explains how to build and test it. Good first issues:
 
 - [string ranges in cells](https://github.com/brunopacheco1/praecepta/issues/13);
 - [a COUNT aggregation](https://github.com/brunopacheco1/praecepta/issues/15);
 - [running the DMN conformance kit](https://github.com/brunopacheco1/praecepta/issues/22).
 
-I would also welcome reviewers and a co-maintainer.
+I would also welcome reviewers and a co-maintainer: the [governance](https://github.com/brunopacheco1/praecepta/blob/main/GOVERNANCE.md) describes the roles and how decisions are made.
 
 ## What could come next?
 
-These are the features I think would be useful. **Tell me which ones you would use**: a 👍 on the issue is enough, and a comment if you would like to build it.
+These are the features I think would be useful; the [roadmap](https://github.com/brunopacheco1/praecepta/blob/main/docs/ROADMAP.md) puts them in order for the next year. **Tell me which ones you would use**: a 👍 on the issue is enough, and a comment if you would like to build it.
 
 - [Boolean, time and date-time columns](https://github.com/brunopacheco1/praecepta/issues/12)
 - [String ranges in cells](https://github.com/brunopacheco1/praecepta/issues/13)
@@ -325,4 +332,4 @@ These are the features I think would be useful. **Tell me which ones you would u
 
 The 2023 trie proved the idea and hit a wall. Bitsets took it further: on these tables, 20 to 2,000 times faster than general-purpose DMN engines, with 6 to 88 times less memory, and honest about what it does not do, including a build that is still slow for large FIRST and PRIORITY tables. Give it a try, tell me where it breaks, and tell me what you would like it to do next.
 
-**See you | Bis geschwënn | Até mais | À bientôt**
+**Namárië | See you | Bis geschwënn | Até mais | À bientôt**
