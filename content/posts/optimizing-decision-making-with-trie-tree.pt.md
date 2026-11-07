@@ -5,6 +5,10 @@ description = "Um relato de experiência: trocando motores de regras DMN (Kogito
 categories = ["Coding"]
 +++
 
+{{< alert >}}
+**Atualização, novembro de 2026:** o benchmark deste post não comparava as soluções em pé de igualdade. O Praecepta rodava com a hit policy UNIQUE enquanto o Camunda e o Kogito rodavam com FIRST, e dois dos serviços liam uma das entradas do campo errado. Desde então, o Praecepta foi reconstruído e medido de novo, de forma justa, contra o Camunda 8 e o Drools: veja [Reconstruindo o Praecepta](/pt/posts/rebuilding-praecepta-from-trie-to-bitsets/).
+{{< /alert >}}
+
 Na Pictet Technologies, meu time depende muito de modelos de decisão. Esses modelos permitem que nossos analistas de negócio insiram regras de Compliance diretamente nos sistemas, com o mínimo de intervenção dos desenvolvedores. Quando entrei na empresa, usávamos tanto o [Drools](https://www.kie.org/) quanto o [Camunda](https://camunda.com/). No entanto, enfrentávamos sérios problemas de memória e de desempenho, especialmente com o Camunda, o que me levou a buscar alternativas.
 
 Para quem não conhece essas soluções, as duas são fornecedoras de motores de regras (rules engines). E um motor de regras é um sistema de software projetado para processar e executar conjuntos de regras de negócio. Essas regras fornecem decisões automatizadas a partir de um conjunto de entradas. Resumindo, um motor de regras é um interpretador de if/else bem sofisticado. Para mais detalhes, sugiro que você siga este [link](http://www.mastertheboss.com/bpm/drools/what-is-a-rule-engine/).
