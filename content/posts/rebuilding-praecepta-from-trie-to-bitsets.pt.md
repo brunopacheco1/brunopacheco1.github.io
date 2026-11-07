@@ -1,6 +1,6 @@
 +++
 date = 2026-11-07T12:00:00+01:00
-title = "Reconstruindo o meu motor DMN: de uma Trie a bitsets, e um benchmark justo contra Camunda e Drools"
+title = "Reconstruindo o Praecepta: de uma Trie a bitsets, e um benchmark justo contra Camunda e Drools"
 description = "O Praecepta 0.1.0 está no Maven Central: um motor de tabelas de decisão DMN reconstruído com bitsets, medido de forma justa contra o Camunda 8 e o Drools, com as suas limitações ditas com clareza. Como usar, quão aberto é o projeto, e o que pode vir a seguir."
 categories = ["Coding"]
 +++
